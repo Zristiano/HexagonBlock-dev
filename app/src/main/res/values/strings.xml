@@ -1,4 +1,9 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/tools">
     <string name="app_name">六边形密图</string>
     <string name="restart">重新\n开始</string>
+    <string name="share_title">本充电宝玩了<xliff:g>%s</xliff:g>分</string>
+    <string name="share_desc1">别激动，听首歌熏陶下再来战！</string>
+    <string name="wechat_friend">微信好友</string>
+    <string name="wechat_timeline">朋友圈</string>
+    <string name="share_desc2">我玩到了<xliff:g>%s</xliff:g>分，超过<xliff:g>%s</xliff:g>分开启隐藏福利！</string>
 </resources>

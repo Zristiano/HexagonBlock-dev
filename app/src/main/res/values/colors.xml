@@ -931,5 +931,7 @@
 
     <color name="Golden">#FFFFD700</color>
 
+    <color name="gray_menu_normal">#33FFFFFF</color>
+    <color name="gray_menu_pressed">#66FFFFFF</color>
 
 </resources>

@@ -3,33 +3,75 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black">
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/share_3d"
+            android:layout_width="@dimen/menu_size"
+            android:layout_height="@dimen/menu_size"
+            android:padding="2dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/selector_share_button"
+            android:visibility="visible"
+            android:background="@drawable/selector_gray_menu"/>
+        <FrameLayout
+            android:layout_width="@dimen/menu_size"
+            android:layout_height="0.5dp"
+            android:background="#33FFFFFF">
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="25dp"
+                android:layout_height="0.5dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:background="#33FFFFFF"/>
+        </FrameLayout>
 
-    <TextView
-        android:text="layout_bind_sevice"
+        <ImageView
+            android:id="@+id/buzzer_3d"
+            android:layout_width="@dimen/menu_size"
+            android:layout_height="@dimen/menu_size"
+            android:padding="2dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/sound_on_64"
+            android:visibility="visible"
+            android:background="@drawable/selector_gray_menu"/>
+
+        <FrameLayout
+            android:layout_width="@dimen/menu_size"
+            android:layout_height="0.5dp"
+            android:background="#33FFFFFF">
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="25dp"
+                android:layout_height="0.5dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:background="#33FFFFFF"/>
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/reboot_game_3d"
+            android:layout_width="@dimen/menu_size"
+            android:layout_height="@dimen/menu_size"
+            android:padding="2dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/selector_restart_button"
+            android:visibility="visible"
+            android:background="@drawable/selector_b_gray_btn"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/rotate_3D_start_btn"
+        android:text="start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/bind"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="bind"/>
-
-    <Button
-        android:id="@+id/unbind"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="unbind"/>
-
-    <Button
-        android:id="@+id/destory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="destory"/>
-    <Button
-        android:id="@+id/writeHint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="writeHint"/>
 </LinearLayout>

@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
 
+// 获取签名配置信息
+def Properties signConfig = new Properties()
+def signConfigFile = file("sign.properties");
+// 如果配置文件可读
+if (signConfigFile.exists() && signConfigFile.canRead()) {
+    signConfig.load(new FileInputStream(signConfigFile))
+}
+print signConfig
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -10,9 +19,24 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
+    //配置keystore签名
+    signingConfigs {
+        allConfig {
+            storeFile file(signConfig.get("key.store"))
+            storePassword signConfig.get("password")
+            keyAlias signConfig.get("alias")
+            keyPassword signConfig.get("aliaspassword")
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig signingConfigs.allConfig
+        }
         release {
             minifyEnabled false
+            signingConfig signingConfigs.allConfig
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -24,4 +48,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
+    compile files('libs/libammsdk.jar')
 }
