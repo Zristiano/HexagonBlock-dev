@@ -5,7 +5,6 @@ import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
-import android.text.BoringLayout;
 
 /**
  * 音效管理类 Created by yuanmengzeng on 2016/6/14.
@@ -13,11 +12,9 @@ import android.text.BoringLayout;
 public class SoundManager implements SoundPool.OnLoadCompleteListener
 {
 
-    private static SoundManager soundManager;
+    private boolean SOUND_ENABLE = true;
 
-    private static boolean SOUND_ENABLE = true;
-
-    private static boolean bg_ENABLE = true;
+    private boolean bg_ENABLE = true;
 
     private Context mContext;
 
@@ -28,6 +25,8 @@ public class SoundManager implements SoundPool.OnLoadCompleteListener
     private SoundCallBack mSoundCallBack;
 
     private int loadSucCount = 0;
+
+    private int soundMenuId; // 打开菜单栏的音效
 
     private int soundExpandId; // Block变大的音效
 
@@ -64,6 +63,7 @@ public class SoundManager implements SoundPool.OnLoadCompleteListener
             {
                 try
                 {
+                    soundMenuId = soundPool.load(mContext, R.raw.menu, 1);
                     soundExpandId = soundPool.load(mContext, R.raw.expand, 1);
                     soundRevertId = soundPool.load(mContext, R.raw.revert, 1);
                     soundMatchId = soundPool.load(mContext, R.raw.match, 1);
@@ -146,6 +146,17 @@ public class SoundManager implements SoundPool.OnLoadCompleteListener
         }
     }
 
+    public void playMenuSound()
+    {
+        if (!SOUND_ENABLE)
+            return;
+        int streamId = soundPool.play(soundMenuId, 1.0f, 1.0f, 1, 0, 1.0f);
+        if (streamId == 0)
+        {
+            ZYMLog.error("playing block Match sound fail");
+        }
+    }
+
     int curBgId = 0;
 
     int bgSoundId[] = {0, 0, 0, 0};
@@ -159,10 +170,10 @@ public class SoundManager implements SoundPool.OnLoadCompleteListener
      */
     public void playBgSound(int order)
     {
-        ZYMLog.info("Sound curBgId is "+curBgId);
-        ZYMLog.info("Sound order is "+order);
+        ZYMLog.info("Sound curBgId is " + curBgId);
+        ZYMLog.info("Sound order is " + order);
         curBgId = order;
-        if (mediaPlayer == null || bgSoundId[curBgId] == mediaPlayer.getAudioSessionId())
+        if (!bg_ENABLE || mediaPlayer == null || bgSoundId[curBgId] == mediaPlayer.getAudioSessionId())
         {
             return;
         }

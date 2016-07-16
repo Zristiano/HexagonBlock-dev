@@ -35,6 +35,7 @@
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
 
-    <dimen name="menu_size">32dp</dimen>
+    <dimen name="menu_size">35dp</dimen>
+    <dimen name="menu_pading">4dp</dimen>
 
 </resources>

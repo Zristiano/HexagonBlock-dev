@@ -2,6 +2,7 @@ package com.example.yuanmengzeng.hexagonblock.Share;
 
 import java.security.spec.MGF1ParameterSpec;
 import java.util.Random;
+import java.util.concurrent.RunnableFuture;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -51,7 +52,7 @@ public class WeChat
 
         Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.julia_bg);
 
-        WXWebpageObject webObj = new WXWebpageObject("www.baidu.com");
+        WXWebpageObject webObj = new WXWebpageObject(CommonData.WECHAT_SHARE_WEB);
 
         WXMusicObject musicObj  = new WXMusicObject();
 
@@ -65,7 +66,7 @@ public class WeChat
 
         msg.thumbData = Util.bmpToByteArray(thumbBmp, true);  // 设置缩略图
 
-        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        final SendMessageToWX.Req req = new SendMessageToWX.Req();
 
         if (shareType == SHARE_TO_FRIEND)
         {
@@ -84,7 +85,12 @@ public class WeChat
         req.message = msg;
         req.scene = getShareScene();
 
-        boolean success = api.sendReq(req);
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                api.sendReq(req);
+            }
+        }).start();
     }
 
 

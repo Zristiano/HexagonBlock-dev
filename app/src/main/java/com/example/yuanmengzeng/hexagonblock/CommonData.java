@@ -5,9 +5,9 @@ package com.example.yuanmengzeng.hexagonblock;
  */
 public class CommonData
 {
-    public final static int SECOND_STAGE_SOCRE = 100;
+    public final static int SECOND_STAGE_SOCRE = 10000;
 
-    public final static int THIRD_STAGE_SOCRE = 200;
+    public final static int THIRD_STAGE_SOCRE = 20000;
 
     public final static int LOAD_TIME_DATA_SUCS = 10000;
 
@@ -15,7 +15,7 @@ public class CommonData
 
     public final static String WeChat_APP_ID = "wx8d3245121978a9b4";
 
-    public final static String REQUEST_TIMESTAMP = "http://api.k780.com:88/?app=life.time&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json";
+    public final static String WECHAT_SHARE_WEB = "http://120.24.93.248/html/app/index.html";
 
     public final static String MP3[] = {
             "http://120.24.93.248/mp3/1.mp3",

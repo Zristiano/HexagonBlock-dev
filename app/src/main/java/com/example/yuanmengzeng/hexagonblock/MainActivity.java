@@ -30,6 +30,7 @@ import android.widget.TextView;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HexagonHeap;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HexagonView;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HorizontalLineBlock;
+import com.example.yuanmengzeng.hexagonblock.Share.MenuPopWindow;
 import com.example.yuanmengzeng.hexagonblock.Share.ShareDialog;
 import com.example.yuanmengzeng.hexagonblock.Share.WeChat;
 
@@ -67,6 +68,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
     private View loadingCircle;
 
+    private View menuList;
+
     private AnimatorSet loadingCircleAnim;
 
     private ShareDialog shareDialog;
@@ -74,6 +77,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private ExitDialog exitDialog;
 
     private ArrayList<Dialog> dialogs = new ArrayList<>();
+
+    private MenuPopWindow menuPopWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -109,20 +114,16 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         leftBlock.setOnTouchListener(this);
         centerBlock.setOnTouchListener(this);
         rightBlock.setOnTouchListener(this);
-        findViewById(R.id.buzzer).setOnClickListener(this);
-        findViewById(R.id.buzzer).setTag(true);
-        findViewById(R.id.share).setOnClickListener(this);
-        findViewById(R.id.animatorTest).setOnClickListener(this);
-        findViewById(R.id.reboot_game).setOnClickListener(this);
+
+        menuList = findViewById(R.id.menu_list);
+        menuList.setOnClickListener(this);
 
         hexblock.setHexContentColor(getResources().getColor(R.color.yellow));
 
-        /*
-         * for(int i =0;i<10000;i++){
-         * positinHandler.changeBlockTypeRandomly(leftBlock); try {
-         * Thread.sleep(10); } catch (InterruptedException e) {
-         * e.printStackTrace(); } }
-         */
+//        for (int i = 0; i < positinHandler.getRandomTypeProducer().getSum() * 100; i++)
+//        {
+//            positinHandler.changeBlockTypeRandomly(leftBlock);
+//        }
     }
 
     private void initCoverView()
@@ -211,7 +212,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 startScaleAnim(loadingCircle);
                 soundManager.playBlockExpandSound();
                 break;
-            case R.id.buzzer:
+            case R.id.buzzer_3d:
                 if (v.getTag() != null && v.getTag() instanceof Boolean)
                 {
                     boolean isEnable = (boolean) v.getTag();
@@ -229,15 +230,39 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                     }
                 }
                 break;
-            case R.id.share:
+            case R.id.share_3d:
                 shareScore();
                 break;
-            case R.id.reboot_game:
-                 reStartGame();
+            case R.id.reboot_game_3d:
+                reStartGame();
                 break;
+            case R.id.menu_list:
+                soundManager.playMenuSound();
+                v.setBackgroundResource(R.drawable.solid_t_radius_gray_btn_normal);
+                showMenuPopWindow();
             case R.id.skim_btn:
                 skimCover();
         }
+    }
+
+    /**
+     * 弹出菜单窗口
+     */
+    private void showMenuPopWindow()
+    {
+        if (menuPopWindow == null)
+        {
+            menuPopWindow = new MenuPopWindow(this, this);
+            menuPopWindow.setOnDismissListner(new MenuPopWindow.onDismissListner()
+            {
+                @Override
+                public void onDismiss()
+                {
+                    menuList.setBackground(null);
+                }
+            });
+        }
+        menuPopWindow.showAsDropDown(menuList, 0, 0, Gravity.TOP);
     }
 
     @Override
@@ -498,18 +523,19 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }
     }
 
-
-    private void shareScore(){
-        if (shareDialog == null){
-            shareDialog = new ShareDialog(this,scoreManager.getSumScore());
+    private void shareScore()
+    {
+        if (shareDialog == null)
+        {
+            shareDialog = new ShareDialog(this, scoreManager.getSumScore());
             dialogs.add(shareDialog);
         }
-        else {
+        else
+        {
             shareDialog.setScore(scoreManager.getSumScore());
         }
         shareDialog.show();
     }
-
 
     @Override
     public void onBackPressed()
@@ -620,9 +646,12 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     /**
      * 隐去所有的dialog
      */
-    private void dismissAllDialog(){
-        for (Dialog dialog :dialogs){
-            if(dialog.isShowing()){
+    private void dismissAllDialog()
+    {
+        for (Dialog dialog : dialogs)
+        {
+            if (dialog.isShowing())
+            {
                 dialog.dismiss();
             }
         }

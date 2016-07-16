@@ -117,13 +117,6 @@ public class ThirdTestActivity extends Activity implements View.OnClickListener{
     }
 
 
-    int location[] = new int[2];
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        if (hasFocus){
-            buzzer3D.getLocationInWindow(location);
-        }
-    }
 
     @Override
     public void onClick(View v) {

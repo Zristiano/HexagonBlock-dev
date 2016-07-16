@@ -16,7 +16,7 @@ android {
         applicationId "com.example.yuanmengzeng.hexagonblock"
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 1
+        versionCode 100
         versionName "1.0"
     }
 
