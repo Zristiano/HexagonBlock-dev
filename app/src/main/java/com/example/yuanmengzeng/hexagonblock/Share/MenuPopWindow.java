@@ -54,7 +54,6 @@ public class MenuPopWindow extends PopupWindow
         setOutsideTouchable(true);
         interpolator = new AccelerateInterpolator();
 
-
         divider_1 = contentView.findViewById(R.id.menu_divider_1);
         divider_2 = contentView.findViewById(R.id.menu_divider_2);
 
@@ -70,14 +69,15 @@ public class MenuPopWindow extends PopupWindow
     }
 
     @Override
-    public void showAsDropDown(View anchor, int xoff, int yoff, int gravity)
+    public void showAsDropDown(View anchor, int xoff, int yoff)
     {
         divider_1.setVisibility(View.INVISIBLE);
         divider_2.setVisibility(View.INVISIBLE);
         buzzer3D.setVisibility(View.GONE);
         share3D.setVisibility(View.GONE);
         restart3D.setVisibility(View.GONE);
-        super.showAsDropDown(anchor, xoff, yoff, gravity);
+        // super.showAsDropDown(anchor, xoff, yoff, gravity);
+        super.showAsDropDown(anchor, xoff, yoff);
         startShare3DRotation();
     }
 
@@ -97,7 +97,7 @@ public class MenuPopWindow extends PopupWindow
             @Override
             public void onAnimationEnd(Animation animation)
             {
-                divider_1 .setVisibility(View.VISIBLE);
+                divider_1.setVisibility(View.VISIBLE);
                 startBuzzer3DRotation();
             }
 
@@ -168,20 +168,24 @@ public class MenuPopWindow extends PopupWindow
     }
 
     @Override
-    public void dismiss() {
+    public void dismiss()
+    {
         super.dismiss();
-        if(onDismissListner!=null){
+        if (onDismissListner != null)
+        {
             onDismissListner.onDismiss();
         }
     }
 
     private onDismissListner onDismissListner;
 
-    public void setOnDismissListner(onDismissListner l){
+    public void setOnDismissListner(onDismissListner l)
+    {
         onDismissListner = l;
     }
 
-    public interface onDismissListner{
+    public interface onDismissListner
+    {
         void onDismiss();
     }
 }

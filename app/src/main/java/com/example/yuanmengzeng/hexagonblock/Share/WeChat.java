@@ -7,12 +7,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-
-
-
-
-
-
 import com.example.yuanmengzeng.hexagonblock.CommonData;
 import com.example.yuanmengzeng.hexagonblock.R;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
@@ -48,14 +42,14 @@ public class WeChat
         api.registerApp(CommonData.WeChat_APP_ID);
     }
 
-    public void shareScore(int score,int order){
+    public void shareScore(int score, int order)
+    {
 
-        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.julia_bg);
+        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.share_pic); // R.drawable.julia_bg
 
         WXWebpageObject webObj = new WXWebpageObject(CommonData.WECHAT_SHARE_WEB);
 
-        WXMusicObject musicObj  = new WXMusicObject();
-
+        WXMusicObject musicObj = new WXMusicObject();
 
         musicObj.musicUrl = CommonData.MP3[order];
 
@@ -64,14 +58,14 @@ public class WeChat
         Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 150, 150, true);
         bmp.recycle();
 
-        msg.thumbData = Util.bmpToByteArray(thumbBmp, true);  // 设置缩略图
+        msg.thumbData = Util.bmpToByteArray(thumbBmp, true); // 设置缩略图
 
         final SendMessageToWX.Req req = new SendMessageToWX.Req();
 
         if (shareType == SHARE_TO_FRIEND)
         {
             msg.mediaObject = musicObj;
-            msg.title = context.getString(R.string.share_title,""+score);
+            msg.title = context.getString(R.string.share_title, "" + score);
             msg.description = context.getString(R.string.share_desc1) + order;
             req.transaction = buildTransaction("music");
         }
@@ -85,14 +79,15 @@ public class WeChat
         req.message = msg;
         req.scene = getShareScene();
 
-        new Thread(new Runnable(){
+        new Thread(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 api.sendReq(req);
             }
         }).start();
     }
-
 
     private String buildTransaction(final String type)
     {

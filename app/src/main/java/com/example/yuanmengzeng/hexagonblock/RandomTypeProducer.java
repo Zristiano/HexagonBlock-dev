@@ -1,9 +1,7 @@
 package com.example.yuanmengzeng.hexagonblock;
 
-import java.security.KeyRep;
 import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
@@ -16,7 +14,7 @@ public class RandomTypeProducer
     /**
      * 各类型出现的频数
      */
-    private Integer typeCount[] = {39, 12, 13, 12, 13, 13, 9, 7, 7, 6, 8, 7, 0, 9, 7, 8, 0, 6, 6, 9, 8, 6, 7, 7, 1};
+    private Integer typeCount[] = {35, 13, 12, 12, 10, 11, 10, 7, 7, 6, 6, 6, 0, 8, 8, 8, 0, 7, 8, 8, 7, 6, 7, 7, 1};
 
     private Integer sum = 0;
 
@@ -69,10 +67,7 @@ public class RandomTypeProducer
             }
             while (true);
         }
-//        numList = null;
-//        typeCount = null;
-//        typeCountArrays = null;
-        ZYMLog.info("all");
+        // ZYMLog.info("all " + randomContainer);
     }
 
     public int getSum()

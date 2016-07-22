@@ -1,5 +1,7 @@
 package com.example.yuanmengzeng.hexagonblock;
 
+import java.util.Random;
+
 /**
  * 公用数据 Created by yuanmengzeng on 2016/6/21.
  */
@@ -7,7 +9,7 @@ public class CommonData
 {
     public final static int SECOND_STAGE_SOCRE = 10000;
 
-    public final static int THIRD_STAGE_SOCRE = 20000;
+    public final static int THIRD_STAGE_SOCRE = 25000;
 
     public final static int LOAD_TIME_DATA_SUCS = 10000;
 
@@ -17,14 +19,11 @@ public class CommonData
 
     public final static String WECHAT_SHARE_WEB = "http://120.24.93.248/html/app/index.html";
 
-    public final static String MP3[] = {
-            "http://120.24.93.248/mp3/1.mp3",
-            "http://120.24.93.248/mp3/2.mp3",
-            "http://120.24.93.248/mp3/3.mp3",
-            "http://120.24.93.248/mp3/4.mp3",
-            "http://120.24.93.248/mp3/5.mp3",
-            "http://120.24.93.248/mp3/6.mp3",
-            "http://120.24.93.248/mp3/7.mp3",
-            "http://120.24.93.248/mp3/8.mp3"
-    };
+    public final static String MP3[] = {"http://120.24.93.248/mp3/1.mp3", "http://120.24.93.248/mp3/2.mp3",
+            "http://120.24.93.248/mp3/3.mp3", "http://120.24.93.248/mp3/4.mp3", "http://120.24.93.248/mp3/5.mp3",
+            "http://120.24.93.248/mp3/6.mp3", "http://120.24.93.248/mp3/7.mp3", "http://120.24.93.248/mp3/8.mp3"};
+
+    public final static int HEAP_BG[] = {R.drawable.rainbow_bg0, R.drawable.rainbow_bg1, R.drawable.rainbow_bg2,
+            R.drawable.rainbow_bg3, R.drawable.me_bg,};
+
 }

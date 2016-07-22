@@ -3,28 +3,32 @@ package com.example.yuanmengzeng.hexagonblock;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 
 /**
- *
  * Created by yuanmengzeng on 2016/6/12.
  */
-public class ExitDialog extends Dialog implements View.OnClickListener{
+public class ExitDialog extends Dialog implements View.OnClickListener
+{
 
     private Activity mActivity;
+
     private DismissListner dismissListner;
 
-    public ExitDialog(Activity context,DismissListner dismissListner) {
+    public ExitDialog(Activity context, DismissListner dismissListner)
+    {
         super(context, R.style.dim_back_dialog);
         mActivity = context;
         this.dismissListner = dismissListner;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exit_dialog);
         findViewById(R.id.exit).setOnClickListener(this);
@@ -37,14 +41,17 @@ public class ExitDialog extends Dialog implements View.OnClickListener{
     }
 
     @Override
-    public void show() {
+    public void show()
+    {
         setCanceledOnTouchOutside(true);
         super.show();
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
             case R.id.exit:
                 dismiss(true);
                 mActivity.finish();
@@ -55,21 +62,26 @@ public class ExitDialog extends Dialog implements View.OnClickListener{
     }
 
     @Override
-    public void dismiss() {
+    public void dismiss()
+    {
         super.dismiss();
-        if(dismissListner!=null){
+        if (dismissListner != null)
+        {
             dismissListner.onDismiss(false);
         }
     }
 
-    private void dismiss(boolean exit){
+    private void dismiss(boolean exit)
+    {
         super.dismiss();
-        if(dismissListner!=null){
+        if (dismissListner != null)
+        {
             dismissListner.onDismiss(exit);
         }
     }
 
-    public interface DismissListner{
+    public interface DismissListner
+    {
         void onDismiss(boolean exit);
     }
 }

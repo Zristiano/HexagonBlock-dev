@@ -150,7 +150,7 @@ public class SoundManager implements SoundPool.OnLoadCompleteListener
     {
         if (!SOUND_ENABLE)
             return;
-        int streamId = soundPool.play(soundMenuId, 1.0f, 1.0f, 1, 0, 1.0f);
+        int streamId = soundPool.play(soundMenuId, 0.6f, 0.6f, 1, 0, 1.0f);
         if (streamId == 0)
         {
             ZYMLog.error("playing block Match sound fail");
@@ -195,7 +195,7 @@ public class SoundManager implements SoundPool.OnLoadCompleteListener
                     mSoundCallBack.onBgSoundLoadSuc(mp);
                 }
             });
-            mediaPlayer.setVolume(0.8f, 0.8f);
+            mediaPlayer.setVolume(0.4f, 0.4f);
             AssetFileDescriptor assetFileDescriptor = mContext.getAssets().openFd(bgName[order]);
             mediaPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(),
                     assetFileDescriptor.getLength());

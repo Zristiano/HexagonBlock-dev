@@ -1,51 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cover"
-    android:visibility="gone"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+             android:id="@+id/cover"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical"
+             android:visibility="visible">
 
     <ImageView
         android:id="@+id/cover_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/cover"/>
+        android:src="@drawable/rainbow_cover"/>
 
     <TextView
         android:id="@+id/skim_btn"
-        android:layout_margin="20dp"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="top|right"
-        android:text="跳过"
-        android:visibility="gone"
+        android:layout_margin="20dp"
+        android:background="@drawable/selector_translucent_btn"
         android:gravity="center"
+        android:text="跳过"
         android:textColor="@color/white"
-        android:background="@drawable/selector_translucent_btn"/>
+        android:visibility="gone"/>
+
     <LinearLayout
         android:id="@+id/loading_hint"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_gravity="top|right"
         android:layout_marginTop="20dp"
-        android:paddingRight="20dp"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_gravity="top|right">
+        android:orientation="horizontal"
+        android:paddingRight="20dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
             android:gravity="center_vertical"
+            android:text="正在加载游戏..."
             android:textColor="@color/white"
-            android:text="正在加载游戏..."/>
+            android:textSize="20sp"/>
+
         <ImageView
             android:id="@+id/loading_circle"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:src="@drawable/circle_32"
             />
     </LinearLayout>

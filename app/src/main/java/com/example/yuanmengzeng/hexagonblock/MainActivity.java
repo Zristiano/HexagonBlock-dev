@@ -120,10 +120,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         hexblock.setHexContentColor(getResources().getColor(R.color.yellow));
 
-//        for (int i = 0; i < positinHandler.getRandomTypeProducer().getSum() * 100; i++)
-//        {
-//            positinHandler.changeBlockTypeRandomly(leftBlock);
-//        }
+        // for (int i = 0; i < positinHandler.getRandomTypeProducer().getSum()
+        // * 100; i++)
+        // {
+        // positinHandler.changeBlockTypeRandomly(leftBlock);
+        // }
     }
 
     private void initCoverView()
@@ -136,6 +137,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         loadingCircleAnim = new AnimatorSet();
 
         hexagonHeap = (HexagonHeap) findViewById(R.id.hexagonHeap);
+        // hexagonHeap.setHeapBgResourse(R.drawable.bruce_bg);
         leftBlock = (HorizontalLineBlock) findViewById(R.id.left_bottom_block);
         centerBlock = (HorizontalLineBlock) findViewById(R.id.center_bottom_block);
         rightBlock = (HorizontalLineBlock) findViewById(R.id.right_bottom_block);
@@ -176,7 +178,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                                 mp.start();
                                 if (cover.getVisibility() == View.VISIBLE)
                                 {
-                                    coverImg.setImageResource(R.drawable.cover2);
+                                    coverImg.setImageResource(R.drawable.cover_birthday);
                                     findViewById(R.id.loading_hint).setVisibility(View.GONE);
                                     findViewById(R.id.skim_btn).setVisibility(View.VISIBLE);
                                 }
@@ -262,7 +264,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 }
             });
         }
-        menuPopWindow.showAsDropDown(menuList, 0, 0, Gravity.TOP);
+        menuPopWindow.showAsDropDown(menuList, 0, 0);
     }
 
     @Override
@@ -583,11 +585,12 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         {
             soundManager.releaseAll();
         }
-        if (topScoreTx == null)
-            return;
-        String text = topScoreTx.getText().toString();
-        topScore = Integer.valueOf(text);
-        CommonUtils.writePrefsInt(this, HIGHTEST_SCORE, topScore);
+        if (topScoreTx != null)
+        {
+            String text = topScoreTx.getText().toString();
+            topScore = Integer.valueOf(text);
+            CommonUtils.writePrefsInt(this, HIGHTEST_SCORE, topScore);
+        }
         dismissAllDialog();
         super.onDestroy();
     }
@@ -638,6 +641,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
     private void reStartGame()
     {
+        positinHandler.setClearAlpha(0);
         soundManager.playBgSound(0);
         hexagonHeap.reset();
         scoreManager.reset();

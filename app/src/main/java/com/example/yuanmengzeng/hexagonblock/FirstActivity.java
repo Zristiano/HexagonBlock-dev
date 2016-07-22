@@ -149,7 +149,7 @@ public class FirstActivity extends Activity implements View.OnClickListener,Soun
             mp.start();
             if (cover.getVisibility() == View.VISIBLE)
             {
-                coverImg.setImageResource(R.drawable.cover2);
+                coverImg.setImageResource(R.drawable.cover_birthday);
                 findViewById(R.id.loading_hint).setVisibility(View.GONE);
                 findViewById(R.id.skim_btn).setVisibility(View.VISIBLE);
             }
