@@ -1,7 +1,5 @@
 package com.example.yuanmengzeng.hexagonblock;
 
-import java.util.Random;
-
 /**
  * 公用数据 Created by yuanmengzeng on 2016/6/21.
  */
@@ -25,5 +23,9 @@ public class CommonData
 
     public final static int HEAP_BG[] = {R.drawable.rainbow_bg0, R.drawable.rainbow_bg1, R.drawable.rainbow_bg2,
             R.drawable.rainbow_bg3, R.drawable.me_bg,};
+
+    // public final static int HEAP_BG[] =
+    // {R.drawable.bruce_bg,R.drawable.bruce_bg0, R.drawable.rainbow_bg2,
+    // R.drawable.me_bg,};
 
 }

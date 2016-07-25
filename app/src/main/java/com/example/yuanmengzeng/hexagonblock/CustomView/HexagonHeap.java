@@ -78,7 +78,7 @@ public class HexagonHeap extends ViewGroup
     {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HexagonHeap);
         heapBgResId = typedArray.getResourceId(R.styleable.HexagonHeap_HexagonHeap_bg, -1);
-        heapBgResId = CommonUtils.getHeapBg();
+        heapBgResId = CommonUtils.getHeapBg();  // 获取大六边形的底案背景
         typedArray.recycle();
     }
 

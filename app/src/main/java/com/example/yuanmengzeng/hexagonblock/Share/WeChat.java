@@ -45,7 +45,7 @@ public class WeChat
     public void shareScore(int score, int order)
     {
 
-        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.share_pic); // R.drawable.julia_bg
+        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.julia_share); // R.drawable.julia_share
 
         WXWebpageObject webObj = new WXWebpageObject(CommonData.WECHAT_SHARE_WEB);
 
