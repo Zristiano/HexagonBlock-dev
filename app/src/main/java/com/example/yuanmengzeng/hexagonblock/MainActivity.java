@@ -5,12 +5,14 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Queue;
+import junit.framework.Test;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -125,6 +127,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         // {
         // positinHandler.changeBlockTypeRandomly(leftBlock);
         // }
+        findViewById(R.id.animatorTest).setOnClickListener(this);
     }
 
     private void initCoverView()
@@ -144,9 +147,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         positinHandler = new HexagonPositinHandler(this);
         positinHandler.setHexagonHeap(hexagonHeap);
-        positinHandler.changeBlockTypeRandomly(leftBlock);
-        positinHandler.changeBlockTypeRandomly(centerBlock);
-        positinHandler.changeBlockTypeRandomly(rightBlock);
+        // positinHandler.changeBlockTypeRandomly(leftBlock);
+        // positinHandler.changeBlockTypeRandomly(centerBlock);
+        // positinHandler.changeBlockTypeRandomly(rightBlock);
 
         findViewById(R.id.skim_btn).setOnClickListener(this);
 
@@ -200,19 +203,30 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         switch (v.getId())
         {
             case R.id.animatorTest:
-                /*
-                 * ObjectAnimator animator =
-                 * ObjectAnimator.ofFloat(helloTxt,"translationY",0,helloTxt.
-                 * getMeasuredWidth(),helloTxt.getMeasuredHeight());
-                 * animator.setDuration(1000).setInterpolator(new
-                 * AccelerateDecelerateInterpolator()); animator.start();
-                 */
+
+                for (int i = 0; i < hexagonHeap.getChildCount(); i++)
+                {
+                    ((HexagonView) hexagonHeap.getChildAt(i)).setHexContentColor(
+                            getResources().getColor(R.color.ver3_dark_gray));
+                }
                 String text = editText.getText().toString();
-                int score = Integer.valueOf(text);
-                scoreManager.addScore(score);
-                playScoreSound(score);
-                startScaleAnim(loadingCircle);
-                soundManager.playBlockExpandSound();
+                int order = Integer.valueOf(text);
+                HexagonView hexagonView = (HexagonView) hexagonHeap.getChildAt(order);
+                hexagonView.setHexContentColor(Color.RED);
+                positinHandler.changeBlockType(leftBlock, order);
+                for (int i = 0; i <= 5; i++)
+                {
+                    HexagonView hex = hexagonView.getAdjacentHexagon(i);
+                    if (hex != null)
+                    {
+                        hex.setHexContentColor(Color.RED);
+                    }
+                }
+                // int score = Integer.valueOf(text);
+                // scoreManager.addScore(score);
+                // playScoreSound(score);
+                // startScaleAnim(loadingCircle);
+                // soundManager.playBlockExpandSound();
                 break;
             case R.id.buzzer_3d:
                 if (v.getTag() != null && v.getTag() instanceof Boolean)
@@ -335,13 +349,13 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 { // 超过20000分，屌，虐个狗（《不能说的秘密》四手联弹）
                     soundManager.playBgSound(2);
                     // positinHandler.setClearAlpha(0x10);
-                    positinHandler.setClearAlpha(0x13);
+                    positinHandler.setClearAlpha(0x05);
                 }
                 else if (scoreManager.getSumScore() > CommonData.SECOND_STAGE_SOCRE)
                 {// 超过8000分，高手，换个有意思的音乐
                     soundManager.playBgSound(1);
                     // positinHandler.setClearAlpha(0x13);
-                    positinHandler.setClearAlpha(0x18);
+                    positinHandler.setClearAlpha(0x10);
                 }
                 // ZYMLog.info("----------------action up");
                 break;

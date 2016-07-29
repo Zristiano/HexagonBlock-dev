@@ -293,9 +293,9 @@ public class HexagonView extends View
         }
     }
 
-
     /**
      * 返回指定位置的邻接六边形
+     * 
      * @param adjPos 邻接位置 （L、LT、RT、R、RB、LB）
      * @return 邻接六边形
      */
@@ -317,7 +317,8 @@ public class HexagonView extends View
         hexContentColorResId = R.color.ver3_dark_gray;
         setTag(null);
         init();
-        invalidate();
+        // invalidate();
+        requestLayout();
     }
 
 }

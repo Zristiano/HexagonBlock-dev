@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.example.yuanmengzeng.hexagonblock.CommonData;
 import com.example.yuanmengzeng.hexagonblock.CommonUtils;
+import com.example.yuanmengzeng.hexagonblock.HexagonRelation;
 import com.example.yuanmengzeng.hexagonblock.R;
 import com.example.yuanmengzeng.hexagonblock.ZYMLog;
 
@@ -78,7 +79,7 @@ public class HexagonHeap extends ViewGroup
     {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HexagonHeap);
         heapBgResId = typedArray.getResourceId(R.styleable.HexagonHeap_HexagonHeap_bg, -1);
-        heapBgResId = CommonUtils.getHeapBg();  // 获取大六边形的底案背景
+        heapBgResId = CommonUtils.getHeapBg(); // 获取大六边形的底案背景
         typedArray.recycle();
     }
 
@@ -172,9 +173,106 @@ public class HexagonHeap extends ViewGroup
                 setChildPosition(childView, startLeft, startHeight, childView.getMeasuredWidth(),
                         childView.getMeasuredHeight());
                 startLeft += childView.getWidth();
+                setAdjacentRelation((HexagonView) childView, i, k, count, hexagonOrder); // 设置小六边形的邻接关系
                 hexagonOrder++;
             }
             startHeight += (int) (childHeight * 0.75);
+        }
+    }
+
+    /**
+     * 设置小六边形的邻接关系
+     * 
+     * @param hexagonView 小六边形
+     * @param layer 小六边形所处的层
+     * @param layOrder 小六边形在该层的序数
+     * @param layCount 该层小六边形个数
+     * @param hexagonOrder 该小六边形在整个大六边形中的序数
+     */
+    private void setAdjacentRelation(HexagonView hexagonView, int layer, int layOrder, int layCount, int hexagonOrder)
+    {
+        if (layer < HEXAGON_LAYER - 1) // 上半部分的小六边形
+        {
+            int lastLayCount = layCount - 1;
+            if (layOrder == 0) // 每行第一个
+            {
+                hexagonView.setAdjacentHexagon(HexagonRelation.RT, getPosHexagonView(hexagonOrder - lastLayCount)); // 右上
+                hexagonView.setAdjacentHexagon(HexagonRelation.R, getPosHexagonView(hexagonOrder + 1)); // 右
+            }
+            else if (layOrder == layCount - 1) // 每行最后一个
+            {
+                hexagonView.setAdjacentHexagon(HexagonRelation.L, getPosHexagonView(hexagonOrder - 1)); // 左
+                hexagonView.setAdjacentHexagon(HexagonRelation.LT, getPosHexagonView(hexagonOrder - layCount)); // 左上
+            }
+            else // 每行非首尾位置的小六边形
+            {
+                hexagonView.setAdjacentHexagon(HexagonRelation.L, getPosHexagonView(hexagonOrder - 1)); // 左
+                hexagonView.setAdjacentHexagon(HexagonRelation.LT, getPosHexagonView(hexagonOrder - layCount)); // 左上
+                hexagonView.setAdjacentHexagon(HexagonRelation.RT, getPosHexagonView(hexagonOrder - lastLayCount)); // 右上
+                hexagonView.setAdjacentHexagon(HexagonRelation.R, getPosHexagonView(hexagonOrder + 1)); // 右
+            }
+            hexagonView.setAdjacentHexagon(HexagonRelation.LB, getPosHexagonView(hexagonOrder + layCount)); // 左下
+            hexagonView.setAdjacentHexagon(HexagonRelation.RB, getPosHexagonView(hexagonOrder + layCount + 1)); // 右下
+        }
+        else if (layer == HEXAGON_LAYER - 1) // 中轴层的小六边形
+        {
+            int lastLayCount = layCount - 1;
+            if (layOrder == 0) // 每行第一个
+            {
+                hexagonView.setAdjacentHexagon(HexagonRelation.RT, getPosHexagonView(hexagonOrder - lastLayCount)); // 右上
+                hexagonView.setAdjacentHexagon(HexagonRelation.RB, getPosHexagonView(hexagonOrder + layCount)); // 右下
+                hexagonView.setAdjacentHexagon(HexagonRelation.R, getPosHexagonView(hexagonOrder + 1)); // 右
+            }
+            else if (layOrder == layCount - 1) // 每行最后一个
+            {
+                hexagonView.setAdjacentHexagon(HexagonRelation.L, getPosHexagonView(hexagonOrder - 1)); // 左
+                hexagonView.setAdjacentHexagon(HexagonRelation.LT, getPosHexagonView(hexagonOrder - layCount)); // 左上
+                hexagonView.setAdjacentHexagon(HexagonRelation.LB, getPosHexagonView(hexagonOrder + layCount - 1)); // 左下
+            }
+            else // 每行非首尾位置的小六边形
+            {
+                hexagonView.setAdjacentHexagon(HexagonRelation.L, getPosHexagonView(hexagonOrder - 1)); // 左
+                hexagonView.setAdjacentHexagon(HexagonRelation.LT, getPosHexagonView(hexagonOrder - layCount)); // 左上
+                hexagonView.setAdjacentHexagon(HexagonRelation.LB, getPosHexagonView(hexagonOrder + layCount - 1)); // 左下
+                hexagonView.setAdjacentHexagon(HexagonRelation.RT, getPosHexagonView(hexagonOrder - lastLayCount)); // 右上
+                hexagonView.setAdjacentHexagon(HexagonRelation.RB, getPosHexagonView(hexagonOrder + layCount)); // 右下
+                hexagonView.setAdjacentHexagon(HexagonRelation.R, getPosHexagonView(hexagonOrder + 1)); // 右
+            }
+        }
+        else // 下半部分的小六边形
+        {
+            int lastLayCount = layCount + 1;
+            if (layOrder == 0) // 每行第一个
+            {
+                hexagonView.setAdjacentHexagon(HexagonRelation.R, getPosHexagonView(hexagonOrder + 1)); // 右
+                hexagonView.setAdjacentHexagon(HexagonRelation.RB, getPosHexagonView(hexagonOrder + layCount)); // 右下
+            }
+            else if (layOrder == layCount - 1) // 每行最后一个
+            {
+                hexagonView.setAdjacentHexagon(HexagonRelation.L, getPosHexagonView(hexagonOrder - 1)); // 左
+                hexagonView.setAdjacentHexagon(HexagonRelation.LB, getPosHexagonView(hexagonOrder + layCount - 1)); // 左下
+            }
+            else // 每行非首尾位置的小六边形
+            {
+                hexagonView.setAdjacentHexagon(HexagonRelation.L, getPosHexagonView(hexagonOrder - 1)); // 左
+                hexagonView.setAdjacentHexagon(HexagonRelation.LB, getPosHexagonView(hexagonOrder + layCount - 1)); // 左下
+                hexagonView.setAdjacentHexagon(HexagonRelation.R, getPosHexagonView(hexagonOrder + 1)); // 右
+                hexagonView.setAdjacentHexagon(HexagonRelation.RB, getPosHexagonView(hexagonOrder + layCount)); // 右下
+            }
+            hexagonView.setAdjacentHexagon(HexagonRelation.LT, getPosHexagonView(hexagonOrder - lastLayCount)); // 左上
+            hexagonView.setAdjacentHexagon(HexagonRelation.RT, getPosHexagonView(hexagonOrder - lastLayCount + 1)); // 右上
+        }
+    }
+
+    private HexagonView getPosHexagonView(int order)
+    {
+        if (order >= 0 && order < getChildCount())
+        {
+            return (HexagonView) getChildAt(order);
+        }
+        else
+        {
+            return null;
         }
     }
 
@@ -250,7 +348,6 @@ public class HexagonHeap extends ViewGroup
             return null;
         float layerHeight = childHeight * 0.75f;
         float layer = y / layerHeight;
-        // ZYMLog.info("layer is "+layer);
         int layerInteger = (int) layer;
         float layerFloat = layer - layerInteger;
         if (layerInteger >= 0 && layerFloat >= 0.25f)

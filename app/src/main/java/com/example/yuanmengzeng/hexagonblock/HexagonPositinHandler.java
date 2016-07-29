@@ -196,6 +196,69 @@ public class HexagonPositinHandler
     }
 
     /**
+     * 选出底案大六边形中的与block相匹配的小六边形
+     * 
+     * @param block b
+     * @return 小六边形
+     */
+    private HexagonView getCorrespondingHex(View block)
+    {
+        int hexagonHeapLocation[] = new int[2];
+        hexagonHeap.getLocationInWindow(hexagonHeapLocation); // 得到大六边形的起始坐标
+        int hexBlockLocation[] = new int[2];
+        block.getLocationInWindow(hexBlockLocation); // 得到可移动六边形的起始坐标
+        int centerX = hexBlockLocation[0] - hexagonHeapLocation[0] + block.getMeasuredWidth() / 2;
+        int centerY = hexBlockLocation[1] - hexagonHeapLocation[1] + block.getMeasuredHeight() / 2;
+        return (HexagonView) hexagonHeap.getHexagon(centerX, centerY);
+    }
+
+    /**
+     * 判断底案中对应block的小六边形是否符合被点亮的条件，若符合则将其设置为block的tag
+     * 
+     * @param tempHex 底案中对应block的小六边形
+     * @param block b
+     * @return 是否符合点亮的条件
+     */
+    private boolean matchBlock(HexagonView tempHex, View block)
+    {
+        if (tempHex != null)
+        {
+            HexagonView tagView = null;
+            if (block.getTag() != null && block.getTag() instanceof HexagonView)
+            { // 得到待匹配六边形里所存储的tag
+                tagView = (HexagonView) (block.getTag());
+            }
+            if (!tempHex.equals(tagView))
+            { // 底案大六边形对应的小六边形不是所存的tag时
+
+                if (tagView != null && !HexagonView.STATE.matched.equals(tagView.getTag()))
+                { // 之前存的tag要变为默认的灰色
+                    tagView.setHexContentColor(mContext.getResources().getColor(R.color.ver3_dark_gray));
+                }
+
+                if (HexagonView.STATE.matched.equals(tempHex.getTag()))
+                { // 之前已被匹配
+                    return false;
+                }
+                else
+                {
+                    block.setTag(tempHex);
+                    return true;
+                }
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
      * 选出底案大六边形中的与block相匹配的小六边形，并设置为block的tag
      * 
      * @param block 用于填充的移动模块里的单个六边形
@@ -256,16 +319,34 @@ public class HexagonPositinHandler
      */
     public boolean matchBlock(HorizontalLineBlock blockGroup)
     {
-        boolean isMatchedAll = false;
+
         boolean ischange = false; // 底案大六边形中的与blockGroup相匹配的图形是否改变
-        for (int i = 0; i < blockGroup.getChildCount(); i++)
+        View childView = blockGroup.getChildAt(0);
+        HexagonView corspdHexView = getCorrespondingHex(childView); // 大六边形中匹配上block里小六边形的小六边形
+        HexagonRelation blockRelation = blockGroup.getRelation();
+        boolean isMatchedAll = matchBlock(corspdHexView, childView);
+        int order = 0;
+        while (isMatchedAll && order < blockRelation.path.length && blockRelation.path[order] >= 0) // 每个小六边形有匹配且序数小于路径长度，路径大于等于0
         {
-            isMatchedAll = matchBlock(blockGroup.getChildAt(i));
-            if (!isMatchedAll)
-            {
-                break; // blockGroup中有一个小六边形无匹配时 ，跳出
-            }
+            corspdHexView = corspdHexView.getAdjacentHexagon(blockRelation.path[order]);
+            childView = blockGroup.getChildAt(order + 1);
+            isMatchedAll = matchBlock(corspdHexView, childView);
+            order++;
         }
+
+        /**
+         * 老方法
+         */
+        // boolean isMatchedAll = false;
+        // for (int i = 0; i < blockGroup.getChildCount(); i++)
+        // {
+        // isMatchedAll = matchBlock(blockGroup.getChildAt(i));
+        // if (!isMatchedAll)
+        // {
+        // break;// blockGroup中有一个小六边形无匹配时 ，跳出
+        // }
+        // }
+
         if (isMatchedAll)
         { // 若全匹配上了 ，将底案大六边形中的与blockGroup相匹配的图形点亮
             for (int i = 0; i < blockGroup.getChildCount(); i++)

@@ -59,14 +59,13 @@
         android:textSize="16dp"/>
 
 
-
     <Button
         android:id="@+id/animatorTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:text="Anim Test"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <com.example.yuanmengzeng.hexagonblock.CustomView.HexagonHeap
         android:id="@+id/hexagonHeap"
@@ -92,7 +91,7 @@
         android:gravity="left|center_vertical"
         android:text="40"
         android:textSize="18sp"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <com.example.yuanmengzeng.hexagonblock.CustomView.HorizontalLineBlock
         android:id="@+id/left_bottom_block"
@@ -102,7 +101,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="30dp"
         app:hexagon_color="@color/yellow"
-        app:shape_type="LEFT_TOP_4_BLOCK"/>
+        app:shape_type="GUN_0_LEFT"/>
 
     <com.example.yuanmengzeng.hexagonblock.CustomView.HorizontalLineBlock
         android:id="@+id/center_bottom_block"
@@ -111,7 +110,7 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="20dp"
         app:hexagon_color="@color/yellow"
-        app:shape_type="GUN_300_LEFT"/>
+        app:shape_type="GUN_0_LEFT"/>
 
     <com.example.yuanmengzeng.hexagonblock.CustomView.HorizontalLineBlock
         android:id="@+id/right_bottom_block"

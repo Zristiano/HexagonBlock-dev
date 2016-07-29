@@ -5,9 +5,9 @@ package com.example.yuanmengzeng.hexagonblock;
  */
 public class CommonData
 {
-    public final static int SECOND_STAGE_SOCRE = 10000;
+    public final static int SECOND_STAGE_SOCRE = 40000;
 
-    public final static int THIRD_STAGE_SOCRE = 25000;
+    public final static int THIRD_STAGE_SOCRE = 80000;
 
     public final static int LOAD_TIME_DATA_SUCS = 10000;
 

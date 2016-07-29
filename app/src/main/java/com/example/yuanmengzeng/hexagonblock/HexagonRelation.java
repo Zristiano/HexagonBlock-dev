@@ -23,6 +23,14 @@ public class HexagonRelation
     public HexagonView[] adjacentMatrix = new HexagonView[6]; // 邻接数组
                                                               // 每个小六边形都有六个边，最多有六个邻接六边形
 
-    public int[] path = new int[4]; // block内部小六边形从左上角到右下角的路径
+    public int[] path = new int[3]; // block内部小六边形从左上角到右下角的路径
+
+    public void initPath()
+    {
+        for (int i = 0; i < path.length; i++)
+        {
+            path[i] = -1;
+        }
+    }
 
 }
