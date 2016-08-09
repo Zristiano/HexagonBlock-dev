@@ -14,7 +14,7 @@ public class RandomTypeProducer
     /**
      * 各类型出现的频数
      */
-    private Integer typeCount[] = {35, 13, 12, 12, 10, 11, 10, 7, 7, 6, 6, 6, 0, 8, 8, 8, 0, 7, 8, 8, 7, 6, 7, 7, 1};
+    private Integer typeCount[] = {28, 12, 11, 11, 9, 9, 9, 7, 7, 6, 6, 6, 0, 8, 8, 8, 0, 7, 8, 8, 7, 6, 7, 7, 1};
 
     private Integer sum = 0;
 

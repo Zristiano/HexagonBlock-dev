@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -122,6 +123,9 @@ public class HexagonPositinHandler
         final FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) view.getLayoutParams();
         if (lp == null)
             return;
+        lp.gravity = Gravity.NO_GRAVITY;
+        lp.bottomMargin = 0;
+        lp.rightMargin = 0;
         if (view.getTag() != null && view.getTag().equals(true))
         { // tag为true说明block被匹配上了，因此要变形，使用动画从屏幕底部出现
             lp.topMargin = location.get(order)[0] - view.getMeasuredHeight();
@@ -250,7 +254,6 @@ public class HexagonPositinHandler
             {
                 return true;
             }
-
         }
         else
         {
@@ -488,10 +491,8 @@ public class HexagonPositinHandler
      */
     public void changeBlockType(HorizontalLineBlock block, int blockType)
     {
-        block.removeAllViews();
         block.setBlockType(blockType);
         revertBlockSize(block);
-
     }
 
     /**
@@ -734,7 +735,8 @@ public class HexagonPositinHandler
             {
                 // (clearableLine.get(j)).setHexContentColor(mContext.getResources().getColor(R.color.ver3_dark_gray));
                 clearBlockAnims.add(clearableLine.get(j).prepareColorAnim(clearAlpha));
-                (clearableLine.get(j)).setTag(HexagonView.STATE.eliminated);
+                (clearableLine.get(j)).setTag(
+                        /* HexagonView.STATE.eliminated */null);
             }
         }
         clearBlockAnimSet.playTogether(clearBlockAnims);
@@ -746,4 +748,43 @@ public class HexagonPositinHandler
     {
         this.clearAlpha = clearAlpha;
     }
+
+    public boolean isRoom2Place(HorizontalLineBlock blockGroup)
+    {
+        HexagonRelation relation = blockGroup.getRelation();
+        boolean isRoom = false;
+
+        for (int i = 0; i < hexagonHeap.getChildCount(); i++)
+        {
+            HexagonView hexagonView = (HexagonView) hexagonHeap.getChildAt(i);
+            if (hexagonView.getTag() != null) // 底案中的该小六边形已被点亮，不能放置block
+            {
+                isRoom = false;
+                continue;
+            }
+            else // 没被点亮 ，可放置
+            {
+                isRoom = true;
+            }
+            int j = 0;
+            while (j < relation.path.length && relation.path[j] >= 0)
+            {
+                hexagonView = hexagonView.getAdjacentHexagon(relation.path[j]);
+                if (hexagonView == null || hexagonView.getTag() != null)
+                { // 底案中的该小六边形已被点亮，不能放置block
+                    isRoom = false; // 没有空间
+                    break; // 跳出循环
+                }
+                isRoom = true; // 没跳出此循环 说明block中的每个小六边形在底案中都有位置放置
+                j++;
+            }
+
+            if (isRoom) // 有一处可放置block则可跳出循环
+            {
+                break;
+            }
+        }
+        return isRoom;
+    }
+
 }

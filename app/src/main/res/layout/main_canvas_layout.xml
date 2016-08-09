@@ -27,25 +27,14 @@
         android:layout_marginTop="15dp"
         android:src="@drawable/list1_64_normal"/>
 
-    <!--<ImageView
-        android:id="@+id/buzzer"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_gravity="right|top"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="45dp"
-        android:src="@drawable/sound_on_64"
-        />
+    <com.example.yuanmengzeng.hexagonblock.CustomView.DiamondView
+        android:id="@+id/diamond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="65dp"
+        app:diamondCount="1"/>
 
-    <ImageView
-        android:id="@+id/reboot_game"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_gravity="top|right"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="80dp"
-        android:src="@drawable/selector_restart_button"
-        />-->
 
     <TextView
         android:id="@+id/hightest_socre"
@@ -65,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:text="Anim Test"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <com.example.yuanmengzeng.hexagonblock.CustomView.HexagonHeap
         android:id="@+id/hexagonHeap"
@@ -91,7 +80,7 @@
         android:gravity="left|center_vertical"
         android:text="40"
         android:textSize="18sp"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <com.example.yuanmengzeng.hexagonblock.CustomView.HorizontalLineBlock
         android:id="@+id/left_bottom_block"
@@ -120,7 +109,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginRight="30dp"
         app:hexagon_color="@color/yellow"
-        app:shape_type="RIGHT_RHOMBUS_BLOCK"/>
+        app:shape_type="GUN_0_LEFT"/>
 
 
     <TextView

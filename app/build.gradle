@@ -16,8 +16,8 @@ android {
         applicationId "com.yuanmengzeng.hexagonblock"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 100
-        versionName "1.0"
+        versionCode 200
+        versionName "2.0"
     }
 
     //配置keystore签名

@@ -19,6 +19,7 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:backgroundDimAmount">0.4</item>
         <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
 
     <style name="dialog_anim_scale_in_out">
@@ -26,8 +27,10 @@
         <item name="android:windowExitAnimation">@anim/dialog_scale_out</item>
     </style>
 
-
-    <style name="share_dialog" parent="@android:style/Theme.Holo.DialogWhenLarge">
+    <!--
+        @android:style/Theme.Holo.DialogWhenLarge
+    -->
+    <style name="share_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowNoTitle">true</item>
@@ -35,7 +38,14 @@
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
 
+
+    <style name="diamond_dialog" parent="share_dialog">
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+
     <dimen name="menu_size">35dp</dimen>
     <dimen name="menu_pading">4dp</dimen>
+    <dimen name="diamond_size">20dp</dimen>
+    <dimen name="diamond_diolag_left_part_width">80dp</dimen>
 
 </resources>

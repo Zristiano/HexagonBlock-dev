@@ -29,9 +29,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.yuanmengzeng.hexagonblock.CustomView.DiamondView;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HexagonHeap;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HexagonView;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HorizontalLineBlock;
+import com.example.yuanmengzeng.hexagonblock.Share.DiamondDialog;
 import com.example.yuanmengzeng.hexagonblock.Share.MenuPopWindow;
 import com.example.yuanmengzeng.hexagonblock.Share.ShareDialog;
 import com.example.yuanmengzeng.hexagonblock.Share.WeChat;
@@ -49,6 +51,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private HexagonView hexblock;
 
     private HorizontalLineBlock leftBlock, centerBlock, rightBlock;
+
+    private ArrayList<HorizontalLineBlock> blocks = new ArrayList<>();
 
     private EditText editText;
 
@@ -72,6 +76,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
     private View menuList;
 
+    private DiamondView diamondView;
+
     private AnimatorSet loadingCircleAnim;
 
     private ShareDialog shareDialog;
@@ -81,6 +87,10 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private ArrayList<Dialog> dialogs = new ArrayList<>();
 
     private MenuPopWindow menuPopWindow;
+
+    private DiamondDialog diamondDialog;
+
+    private int diamondScore; // 加钻石的门槛分数
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -128,6 +138,10 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         // positinHandler.changeBlockTypeRandomly(leftBlock);
         // }
         findViewById(R.id.animatorTest).setOnClickListener(this);
+        diamondView = (DiamondView) findViewById(R.id.diamond);
+        diamondView.setOnClickListener(this);
+
+        diamondScore = CommonData.STATE_SCORE_LEVEl;
     }
 
     private void initCoverView()
@@ -145,11 +159,15 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         centerBlock = (HorizontalLineBlock) findViewById(R.id.center_bottom_block);
         rightBlock = (HorizontalLineBlock) findViewById(R.id.right_bottom_block);
 
+        blocks.add(leftBlock);
+        blocks.add(centerBlock);
+        blocks.add(rightBlock);
+
         positinHandler = new HexagonPositinHandler(this);
         positinHandler.setHexagonHeap(hexagonHeap);
-        // positinHandler.changeBlockTypeRandomly(leftBlock);
-        // positinHandler.changeBlockTypeRandomly(centerBlock);
-        // positinHandler.changeBlockTypeRandomly(rightBlock);
+        positinHandler.changeBlockTypeRandomly(leftBlock);
+        positinHandler.changeBlockTypeRandomly(centerBlock);
+        positinHandler.changeBlockTypeRandomly(rightBlock);
 
         findViewById(R.id.skim_btn).setOnClickListener(this);
 
@@ -258,27 +276,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 showMenuPopWindow();
             case R.id.skim_btn:
                 skimCover();
+                break;
+            case R.id.diamond:
+                showDiamondDialog();
+                break;
         }
-    }
-
-    /**
-     * 弹出菜单窗口
-     */
-    private void showMenuPopWindow()
-    {
-        if (menuPopWindow == null)
-        {
-            menuPopWindow = new MenuPopWindow(this, this);
-            menuPopWindow.setOnDismissListner(new MenuPopWindow.onDismissListner()
-            {
-                @Override
-                public void onDismiss()
-                {
-                    menuList.setBackground(null);
-                }
-            });
-        }
-        menuPopWindow.showAsDropDown(menuList, 0, 0);
     }
 
     @Override
@@ -320,6 +322,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                         @Override
                         public void onAnimationEnd(Animation animation)
                         {
+                            v.setVisibility(View.INVISIBLE);
                             positinHandler.revertBlockSize((HorizontalLineBlock) v); // 回复初始大小
                             positinHandler.setHexagonViewMatched((HorizontalLineBlock) v);
                             positinHandler.changeBlockTypeRandomly((HorizontalLineBlock) v);
@@ -328,8 +331,19 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                             {
                                 playScoreSound(scoreManager.getStepScore());
                             }
-                            v.setVisibility(View.INVISIBLE);
                             moveToInitPosition(v);
+                            new Handler().postDelayed(new Runnable() //
+                            {
+                                @Override
+                                public void run()
+                                {
+                                    if (checkGameOver())
+                                    {
+                                        showExitDialog(CommonData.TYPE_DIAMOND);
+                                    }
+                                }
+                            }, 150);
+
                         }
 
                         @Override
@@ -337,7 +351,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                         {
                         }
                     });
-
                 }
                 else
                 {
@@ -348,20 +361,86 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 if (scoreManager.getSumScore() > CommonData.THIRD_STAGE_SOCRE)
                 { // 超过20000分，屌，虐个狗（《不能说的秘密》四手联弹）
                     soundManager.playBgSound(2);
-                    // positinHandler.setClearAlpha(0x10);
                     positinHandler.setClearAlpha(0x05);
                 }
                 else if (scoreManager.getSumScore() > CommonData.SECOND_STAGE_SOCRE)
                 {// 超过8000分，高手，换个有意思的音乐
                     soundManager.playBgSound(1);
-                    // positinHandler.setClearAlpha(0x13);
                     positinHandler.setClearAlpha(0x10);
+                }
+
+                if (scoreManager.getSumScore() >= diamondScore)
+                {
+                    diamondScore += CommonData.STATE_SCORE_LEVEl;
+                    diamondView.addDiamond(1);
                 }
                 // ZYMLog.info("----------------action up");
                 break;
 
         }
         return true;
+    }
+
+    /**
+     * 弹出菜单窗口
+     */
+    private void showMenuPopWindow()
+    {
+        if (menuPopWindow == null)
+        {
+            menuPopWindow = new MenuPopWindow(this, this);
+            menuPopWindow.setOnDismissListner(new MenuPopWindow.onDismissListner()
+            {
+                @Override
+                public void onDismiss()
+                {
+                    menuList.setBackground(null);
+                }
+            });
+        }
+        menuPopWindow.showAsDropDown(menuList, 0, 0);
+    }
+
+    private DiamondDialog.OnDiamondCsmListner onDiamondCsmListner = new DiamondDialog.OnDiamondCsmListner()
+    {
+        @Override
+        public void onBlockTransform(int whickBlock, int newForm)
+        {
+            diamondView.addDiamond(-1);
+            ZYMLog.info("diamond count is " + diamondView.getDiamondCount());
+            switch (whickBlock)
+            {
+                case CommonData.BLOCK_LEFT:
+                    positinHandler.changeBlockType(leftBlock, newForm);
+                    moveToInitPosition(leftBlock);
+                    break;
+                case CommonData.BLOCK_CENTER:
+                    positinHandler.changeBlockType(centerBlock, newForm);
+                    moveToInitPosition(centerBlock);
+                    break;
+                case CommonData.BLOCK_RIGHT:
+                    positinHandler.changeBlockType(rightBlock, newForm);
+                    moveToInitPosition(rightBlock);
+                    break;
+            }
+        }
+    };
+
+    public void showDiamondDialog()
+    {
+        if (diamondDialog == null)
+        {
+            diamondDialog = new DiamondDialog(MainActivity.this, diamondView.getDiamondCount(),
+                    leftBlock.getBlockType(), centerBlock.getBlockType(), rightBlock.getBlockType());
+            diamondDialog.setOnDiamondCsmListner(onDiamondCsmListner);
+        }
+        else
+        {
+            diamondDialog.refreshData(diamondView.getDiamondCount(), leftBlock.getBlockType(),
+                    centerBlock.getBlockType(), rightBlock.getBlockType());
+        }
+        diamondDialog.show();
+
     }
 
     private void startScaleAnim(View view)
@@ -402,6 +481,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }, 5000);
     }
 
+    boolean firstDraw = true;
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus)
     {
@@ -412,8 +493,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             startScaleAnim(loadingCircle);
         }
 
-        if (positinHandler != null)
+        if (positinHandler != null && firstDraw) // 只有第一次进入界面的时候才定位各个棋子的位置
         {
+            firstDraw = false;
             positinHandler.setInitPositionInfo(leftBlock, 0);
             positinHandler.setInitPositionInfo(centerBlock, 1);
             positinHandler.setInitPositionInfo(rightBlock, 2);
@@ -553,8 +635,30 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         shareDialog.show();
     }
 
+    /**
+     * 检测游戏是否结束
+     * 
+     * @return 是否结束
+     */
+    private boolean checkGameOver()
+    {
+        boolean isGameOver = true;
+        int i = 0;
+        while (isGameOver && i < blocks.size())
+        {
+            isGameOver = !positinHandler.isRoom2Place(blocks.get(i++));
+        }
+        return isGameOver;
+
+    }
+
     @Override
     public void onBackPressed()
+    {
+        showExitDialog(CommonData.TYPE_EXIT);
+    }
+
+    private void showExitDialog(int type)
     {
         if (exitDialog == null)
         {
@@ -575,35 +679,34 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             });
             dialogs.add(exitDialog);
         }
+        exitDialog.setType(type);
         exitDialog.show();
         if (soundManager != null)
         {
             soundManager.pauseSound();
         }
+        writeRecord();
     }
 
     @Override
     protected void onPause()
     {
         super.onPause();
+        ZYMLog.info("ZYM onPause");
         if (soundManager != null)
         {
             soundManager.pauseSound();
         }
+        writeRecord();
     }
 
     @Override
     protected void onDestroy()
     {
+        ZYMLog.info("ZYM onDestroy");
         if (soundManager != null)
         {
             soundManager.releaseAll();
-        }
-        if (topScoreTx != null)
-        {
-            String text = topScoreTx.getText().toString();
-            topScore = Integer.valueOf(text);
-            CommonUtils.writePrefsInt(this, HIGHTEST_SCORE, topScore);
         }
         dismissAllDialog();
         super.onDestroy();
@@ -653,8 +756,19 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }
     }
 
+    private void writeRecord()
+    {
+        if (topScoreTx != null)
+        {
+            String text = topScoreTx.getText().toString();
+            topScore = Integer.valueOf(text);
+            CommonUtils.writePrefsInt(this, HIGHTEST_SCORE, topScore);
+        }
+    }
+
     private void reStartGame()
     {
+        diamondView.setDiamondCount(1);
         positinHandler.setClearAlpha(0);
         soundManager.playBgSound(0);
         hexagonHeap.reset();

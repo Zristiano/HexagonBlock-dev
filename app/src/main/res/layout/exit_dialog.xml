@@ -1,48 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/rectangle_radius">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/rectangle_radius"
+              android:orientation="vertical">
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
-        android:scaleType="fitXY"
-        android:src="@drawable/exit_image"/>
+        android:layout_weight="9">
+
+        <ImageView
+            android:id="@+id/exit_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/exit_image"/>
+
+        <TextView
+            android:id="@+id/use_diamond_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/use_diamond_hint"
+            android:textColor="@color/Golden"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         >
 
         <Button
             android:id="@+id/exit"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            style="?android:attr/buttonBarButtonStyle"
+            android:background="@drawable/selector_gray_btn"
             android:gravity="center"
-            android:textColor="@color/detail_gray_white"
             android:text="退出"
-            android:textSize="20sp"
-            android:background="@drawable/selector_gray_btn"/>
+            android:textColor="@color/detail_gray_white"
+            android:textSize="20sp"/>
 
         <Button
             android:id="@+id/continue_game"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            style="?android:attr/buttonBarButtonStyle"
+            android:background="@drawable/selector_blue_btn"
             android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="20sp"
             android:text="继续游戏"
-            android:background="@drawable/selector_blue_btn"/>
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
 
     </LinearLayout>
 </LinearLayout>

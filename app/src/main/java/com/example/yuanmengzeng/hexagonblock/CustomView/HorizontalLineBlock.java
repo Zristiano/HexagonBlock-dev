@@ -60,6 +60,7 @@ public class HorizontalLineBlock extends BaseBlock
     private void init()
     {
         ZYMLog.info("blockType is " + blockType);
+        removeAllViews();
         switch (blockType)
         {
             case SINGLE_BLOCK:
@@ -887,5 +888,10 @@ public class HorizontalLineBlock extends BaseBlock
     public HexagonRelation getRelation()
     {
         return relation;
+    }
+
+    public int getBlockType()
+    {
+        return blockType;
     }
 }

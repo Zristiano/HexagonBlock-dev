@@ -628,7 +628,7 @@
 
     <color name="cartoon_schedule_content_overlap">#FFFF9313</color>
 
-    <color name="cartoon_rank_category">#FF969696 </color>
+    <color name="cartoon_rank_category">#FF969696</color>
 
     <color name="cartoon_rank_line">#FFDCDCDC</color>
 
@@ -674,11 +674,11 @@
 
     <color name="category_order_filter_bg">#FFF0F0F0</color>
 
-    <color name="category_order_filter_line">#FFDDDDDD </color>
+    <color name="category_order_filter_line">#FFDDDDDD</color>
 
     <color name="category_order_filter_text_selected">#FFFF9313</color>
 
-    <color name="category_order_filter_text_normal">#FF323232 </color>
+    <color name="category_order_filter_text_normal">#FF323232</color>
 
     <color name="category_filter_text_selected">#FFFFFFFF</color>
 
@@ -933,5 +933,9 @@
 
     <color name="gray_menu_normal">#33FFFFFF</color>
     <color name="gray_menu_pressed">#66FFFFFF</color>
+    <color name="translucent_black">#EE000000</color>
+    <color name="detail_line_color">#ffdcdcdc</color>
+    <color name="diamond_dialog_bg">#44000000</color>
+    <color name="confirm_disable">#44dcdcdc</color>
 
 </resources>

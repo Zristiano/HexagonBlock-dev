@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/diamond_dialog_bg"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/diamond_sum"
+            android:layout_width="@dimen/diamond_diolag_left_part_width"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@drawable/diamond_48"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="x4"
+            android:textColor="@color/white"/>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:background="@color/detail_line_color"/>
+
+        <TextView
+            android:id="@+id/diamond_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
+            android:text="@string/diamond_desc"
+            android:textColor="@color/white"
+            android:textSize="13dp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/detail_line_color"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="@dimen/diamond_diolag_left_part_width"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/left_block_container"
+                android:layout_width="@dimen/diamond_diolag_left_part_width"
+                android:layout_height="@dimen/diamond_diolag_left_part_width"
+                android:background="@drawable/selector_diamond_block_bg">
+
+                <com.example.yuanmengzeng.hexagonblock.CustomView.HorizontalLineBlock
+                    android:id="@+id/left_block"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_centerInParent="true"
+                    app:shape_type="GUN_0_LEFT"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="8dp"
+                android:background="@color/detail_line_color"/>
+
+            <RelativeLayout
+                android:id="@+id/center_block_container"
+                android:layout_width="@dimen/diamond_diolag_left_part_width"
+                android:layout_height="@dimen/diamond_diolag_left_part_width"
+                android:background="@drawable/selector_diamond_block_bg">
+
+                <com.example.yuanmengzeng.hexagonblock.CustomView.HorizontalLineBlock
+                    android:id="@+id/center_block"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_centerInParent="true"
+                    app:shape_type="HORIZONTAL_4_BLOCK"/>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="8dp"
+                android:background="@color/detail_line_color"/>
+
+            <RelativeLayout
+                android:id="@+id/right_block_container"
+                android:layout_width="@dimen/diamond_diolag_left_part_width"
+                android:layout_height="@dimen/diamond_diolag_left_part_width"
+                android:background="@drawable/selector_diamond_block_bg">
+
+                <com.example.yuanmengzeng.hexagonblock.CustomView.HorizontalLineBlock
+                    android:id="@+id/right_block"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_centerInParent="true"
+                    app:shape_type="LEFT_BOTTOM_4_BLOCK"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/detail_line_color"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:id="@+id/transform_block_container"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true">
+
+                <com.example.yuanmengzeng.hexagonblock.CustomView.HorizontalLineBlock
+                    android:id="@+id/transform_block"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    app:shape_type="GUN_120_LEFT"/>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/select_trangle_top"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_above="@id/transform_block_container"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/small_trangle_up"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/select_trangle_down"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/transform_block_container"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/small_trangle_down"/>
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/detail_line_color"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginRight="50dp"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="@color/selector_btn_blue"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="50dp"
+            android:gravity="center"
+            android:text="@string/confirm"
+            android:textColor="@color/selector_btn_blue"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
