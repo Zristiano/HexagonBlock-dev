@@ -17,7 +17,13 @@ public class CommonData
 
     public final static String WeChat_APP_ID = "wx8d3245121978a9b4";
 
-    public final static String WECHAT_SHARE_WEB = "http://120.24.93.248/html/app/index.html";
+    public final static String QQ_APP_ID = "1105500365";
+
+    public final static String DOWNLOAD_WEB_URL = "http://120.24.93.248/html/app/index.html";
+
+    public final static String SHARE_URL_1 = "http://120.24.93.248/images/app/julia_share.jpg";
+
+    public final static String SHARE_URL_2 = "http://120.24.93.248/images/app/share_pic.png";
 
     public final static String MP3[] = {"http://120.24.93.248/mp3/1.mp3", "http://120.24.93.248/mp3/2.mp3",
             "http://120.24.93.248/mp3/3.mp3", "http://120.24.93.248/mp3/4.mp3", "http://120.24.93.248/mp3/5.mp3",
@@ -46,5 +52,16 @@ public class CommonData
      * 游戏失败使用钻石dialog的类型标志
      */
     public final static int TYPE_DIAMOND = 0x1235;
+
+    public final static String QQ_SCOPE = "get_user_info,get_simple_userinfo,get_user_profile,get_app_friends";
+
+    /**
+     * 用户昵称
+     */
+    public final static String NICKNAME = "com.yuanmengzeng.hexagonblock.NICKNAME";
+
+    public final static String AVATAR = "com.yuanmengzeng.hexagonblock.AVATAR";
+
+    public final static int QQ_LOGIN_REQUEST_CODE = 11101;
 
 }

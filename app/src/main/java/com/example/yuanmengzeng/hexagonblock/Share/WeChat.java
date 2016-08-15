@@ -47,7 +47,7 @@ public class WeChat
 
         Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.julia_share); // R.drawable.julia_share
 
-        WXWebpageObject webObj = new WXWebpageObject(CommonData.WECHAT_SHARE_WEB);
+        WXWebpageObject webObj = new WXWebpageObject(CommonData.DOWNLOAD_WEB_URL);
 
         WXMusicObject musicObj = new WXMusicObject();
 

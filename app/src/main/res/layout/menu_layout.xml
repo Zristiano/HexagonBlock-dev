@@ -5,6 +5,7 @@
               android:layout_gravity="center_horizontal"
               android:layout_marginTop="10dp"
               android:orientation="vertical">
+
     <FrameLayout
         android:layout_width="@dimen/menu_size"
         android:layout_height="wrap_content"
@@ -56,6 +57,31 @@
 
     <FrameLayout
         android:id="@+id/menu_divider_2"
+        android:layout_width="@dimen/menu_size"
+        android:layout_height="0.5dp"
+        android:background="#33FFFFFF">
+
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:background="#33FFFFFF"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"/>
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/rank_list"
+        android:layout_width="@dimen/menu_size"
+        android:layout_height="@dimen/menu_size"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/selector_gray_menu"
+        android:padding="@dimen/menu_pading"
+        android:src="@drawable/rank_list_2"
+        android:visibility="visible"/>
+
+    <FrameLayout
+        android:id="@+id/menu_divider_3"
         android:layout_width="@dimen/menu_size"
         android:layout_height="0.5dp"
         android:background="#33FFFFFF">

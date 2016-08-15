@@ -43,6 +43,11 @@
         <item name="android:backgroundDimAmount">0.5</item>
     </style>
 
+    <style name="rank_list_dialog" parent="dim_back_dialog">
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:backgroundDimAmount">0.8</item>
+    </style>
+
     <dimen name="menu_size">35dp</dimen>
     <dimen name="menu_pading">4dp</dimen>
     <dimen name="diamond_size">20dp</dimen>

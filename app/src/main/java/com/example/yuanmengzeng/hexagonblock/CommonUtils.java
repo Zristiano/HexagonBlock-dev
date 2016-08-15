@@ -41,6 +41,22 @@ public class CommonUtils
         editor.apply();
     }
 
+    public static String readPrefsString(Context context, String key)
+    {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_APPEND);
+        if (sharedPreferences == null)
+            return null;
+        else
+            return sharedPreferences.getString(key, "");
+    }
+
+    public static void writePrefsString(Context context, String key, String value)
+    {
+        SharedPreferences.Editor editor = context.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_APPEND).edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
     public static int getHeapBg()
     {
         int count = CommonData.HEAP_BG.length;

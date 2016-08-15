@@ -15,10 +15,11 @@ android {
     defaultConfig {
         applicationId "com.yuanmengzeng.hexagonblock"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 200
         versionName "2.0"
     }
+    useLibrary 'org.apache.http.legacy'
 
     //配置keystore签名
     signingConfigs {
@@ -49,4 +50,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile files('libs/libammsdk.jar')
+    compile files('libs/mta-sdk-1.6.2.jar')
+    compile files('libs/open_sdk_r5756.jar')
+    compile 'com.android.support:design:23.3.0'
+    //    testCompile "org.robolectric:robolectric:3.1.1"
+    compile project(':imageloader')
 }

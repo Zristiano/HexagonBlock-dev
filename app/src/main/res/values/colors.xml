@@ -937,5 +937,5 @@
     <color name="detail_line_color">#ffdcdcdc</color>
     <color name="diamond_dialog_bg">#44000000</color>
     <color name="confirm_disable">#44dcdcdc</color>
-
+    <color name="game_yellow">#ea8010</color>
 </resources>

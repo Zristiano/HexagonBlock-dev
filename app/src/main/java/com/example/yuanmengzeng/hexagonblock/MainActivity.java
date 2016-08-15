@@ -33,15 +33,17 @@ import com.example.yuanmengzeng.hexagonblock.CustomView.DiamondView;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HexagonHeap;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HexagonView;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HorizontalLineBlock;
+import com.example.yuanmengzeng.hexagonblock.QQ.QQUiListener;
+import com.example.yuanmengzeng.hexagonblock.RankList.RankDialog;
 import com.example.yuanmengzeng.hexagonblock.Share.DiamondDialog;
 import com.example.yuanmengzeng.hexagonblock.Share.MenuPopWindow;
 import com.example.yuanmengzeng.hexagonblock.Share.ShareDialog;
-import com.example.yuanmengzeng.hexagonblock.Share.WeChat;
+import com.tencent.tauth.Tencent;
 
 /**
  * Created by yuanmengzeng on 2016/5/17.
  */
-public class MainActivity extends Activity implements View.OnClickListener, View.OnTouchListener
+public class MainActivity extends BaseActivity implements View.OnClickListener, View.OnTouchListener
 {
 
     private final static String HIGHTEST_SCORE = "hexagon_block_hightest_score";
@@ -89,6 +91,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private MenuPopWindow menuPopWindow;
 
     private DiamondDialog diamondDialog;
+
+    private RankDialog rankDialog;
 
     private int diamondScore; // 加钻石的门槛分数
 
@@ -280,6 +284,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             case R.id.diamond:
                 showDiamondDialog();
                 break;
+            case R.id.rank_list:
+                showRankDialog();
+                break;
         }
     }
 
@@ -441,6 +448,16 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }
         diamondDialog.show();
 
+    }
+
+    private void showRankDialog()
+    {
+        if (rankDialog == null)
+        {
+            rankDialog = new RankDialog();
+        }
+        rankDialog.setScore(scoreManager.getSumScore());
+        rankDialog.show(getSupportFragmentManager(), null);
     }
 
     private void startScaleAnim(View view)
@@ -789,4 +806,12 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == CommonData.QQ_LOGIN_REQUEST_CODE && resultCode == RESULT_OK)
+        {
+            Tencent.onActivityResultData(requestCode, resultCode, data, new QQUiListener());
+        }
+    }
 }

@@ -1,77 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/black"
+    android:orientation="vertical">
+
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
         <ImageView
             android:id="@+id/share_3d"
             android:layout_width="@dimen/menu_size"
             android:layout_height="@dimen/menu_size"
-            android:padding="2dp"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/selector_gray_menu"
+            android:padding="2dp"
             android:src="@drawable/selector_share_button"
-            android:visibility="visible"
-            android:background="@drawable/selector_gray_menu"/>
+            android:visibility="visible"/>
+
         <FrameLayout
             android:layout_width="@dimen/menu_size"
             android:layout_height="0.5dp"
             android:background="#33FFFFFF">
+
             <TextView
-                android:layout_gravity="center"
                 android:layout_width="25dp"
                 android:layout_height="0.5dp"
+                android:layout_gravity="center"
+                android:background="#33FFFFFF"
                 android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:background="#33FFFFFF"/>
+                android:paddingRight="2dp"/>
         </FrameLayout>
 
         <ImageView
             android:id="@+id/buzzer_3d"
             android:layout_width="@dimen/menu_size"
             android:layout_height="@dimen/menu_size"
-            android:padding="2dp"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/selector_gray_menu"
+            android:padding="2dp"
             android:src="@drawable/sound_on_64"
-            android:visibility="visible"
-            android:background="@drawable/selector_gray_menu"/>
+            android:visibility="visible"/>
 
         <FrameLayout
             android:layout_width="@dimen/menu_size"
             android:layout_height="0.5dp"
             android:background="#33FFFFFF">
+
             <TextView
-                android:layout_gravity="center"
                 android:layout_width="25dp"
                 android:layout_height="0.5dp"
+                android:layout_gravity="center"
+                android:background="#33FFFFFF"
                 android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:background="#33FFFFFF"/>
+                android:paddingRight="2dp"/>
         </FrameLayout>
 
         <ImageView
             android:id="@+id/reboot_game_3d"
             android:layout_width="@dimen/menu_size"
             android:layout_height="@dimen/menu_size"
-            android:padding="2dp"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/selector_b_gray_btn"
+            android:padding="2dp"
             android:src="@drawable/selector_restart_button"
-            android:visibility="visible"
-            android:background="@drawable/selector_b_gray_btn"/>
+            android:visibility="visible"/>
 
     </LinearLayout>
 
     <Button
         android:id="@+id/rotate_3D_start_btn"
-        android:text="start"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="start"/>
+
+    <com.example.yuanmengzeng.hexagonblock.CustomView.HexagonImageView
+        android:id="@+id/textHexagonImgView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/avatar1"/>
+
+    <FrameLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp">
+
+        <com.example.yuanmengzeng.hexagonblock.CustomView.OvalImageView
+            android:id="@+id/textOvalImgView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/avatar2"/>
+    </FrameLayout>
+
 
 </LinearLayout>

@@ -5,6 +5,8 @@
     <string name="share_desc1">别激动，听首歌熏陶下再来战！</string>
     <string name="wechat_friend">微信好友</string>
     <string name="wechat_timeline">朋友圈</string>
+    <string name="QQ_friend">QQ好友</string>
+    <string name="Qzone">QQ空间</string>
     <string name="share_desc2">我玩到了<xliff:g>%s</xliff:g>分，超过<xliff:g>%s</xliff:g>分开启隐藏福利！</string>
     <string name="diamond_desc">钻石可将填充棋子变成想要的形状，每变换一次形状，消耗一颗钻石，每<xliff:g>%s</xliff:g>分获得一颗钻石。您当前拥有钻石颗数：<xliff:g>%s</xliff:g></string>
     <string name="cancel">取消</string>
@@ -13,4 +15,6 @@
     <string name="exit">退出</string>
     <string name="continue_game">继续游戏</string>
     <string name="use_diamon">使用钻石</string>
+    <string name="close">关闭</string>
+    <string name="upload_score">上传得分</string>
 </resources>

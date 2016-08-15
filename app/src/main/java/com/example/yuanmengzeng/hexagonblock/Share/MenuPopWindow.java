@@ -29,7 +29,9 @@ public class MenuPopWindow extends PopupWindow
 
     private View restart3D;
 
-    private View divider_1, divider_2;
+    private View topList3D;
+
+    private View divider_1, divider_2, divider_3;
 
     private Interpolator interpolator;
 
@@ -56,6 +58,7 @@ public class MenuPopWindow extends PopupWindow
 
         divider_1 = contentView.findViewById(R.id.menu_divider_1);
         divider_2 = contentView.findViewById(R.id.menu_divider_2);
+        divider_3 = contentView.findViewById(R.id.menu_divider_3);
 
         buzzer3D = contentView.findViewById(R.id.buzzer_3d);
         buzzer3D.setOnClickListener(onClickListener);
@@ -66,6 +69,9 @@ public class MenuPopWindow extends PopupWindow
 
         restart3D = contentView.findViewById(R.id.reboot_game_3d);
         restart3D.setOnClickListener(onClickListener);
+
+        topList3D = contentView.findViewById(R.id.rank_list);
+        topList3D.setOnClickListener(onClickListener);
     }
 
     @Override
@@ -73,8 +79,10 @@ public class MenuPopWindow extends PopupWindow
     {
         divider_1.setVisibility(View.INVISIBLE);
         divider_2.setVisibility(View.INVISIBLE);
+        divider_3.setVisibility(View.INVISIBLE);
         buzzer3D.setVisibility(View.GONE);
         share3D.setVisibility(View.GONE);
+        topList3D.setVisibility(View.GONE);
         restart3D.setVisibility(View.GONE);
         // super.showAsDropDown(anchor, xoff, yoff, gravity);
         super.showAsDropDown(anchor, xoff, yoff);
@@ -127,7 +135,7 @@ public class MenuPopWindow extends PopupWindow
             public void onAnimationEnd(Animation animation)
             {
                 divider_2.setVisibility(View.VISIBLE);
-                startRestart3DRotation();
+                startTopList3DRotation();
             }
 
             @Override
@@ -137,6 +145,35 @@ public class MenuPopWindow extends PopupWindow
             }
         });
         buzzer3D.startAnimation(x3DRotation);
+    }
+
+    private void startTopList3DRotation()
+    {
+        X3DRotation x3DRotation = new X3DRotation(270, 360, 0.0f, 0.0f, 0.0f, false);
+        x3DRotation.setDuration(animationTime);
+        x3DRotation.setInterpolator(interpolator);
+        x3DRotation.setAnimationListener(new Animation.AnimationListener()
+        {
+            @Override
+            public void onAnimationStart(Animation animation)
+            {
+                topList3D.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation)
+            {
+                divider_3.setVisibility(View.VISIBLE);
+                startRestart3DRotation();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation)
+            {
+
+            }
+        });
+        topList3D.startAnimation(x3DRotation);
     }
 
     private void startRestart3DRotation()

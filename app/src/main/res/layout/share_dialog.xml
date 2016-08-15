@@ -4,8 +4,8 @@
     android:id="@+id/share_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="#44000000">
+    android:background="#44000000"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/wechat_friend"
@@ -20,14 +20,41 @@
 
     <TextView
         android:id="@+id/wechat_timeLine"
-        android:layout_toRightOf="@id/wechat_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_below="@id/wechat_friend"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
         android:drawablePadding="5dp"
         android:drawableTop="@drawable/selector_wechat_timeline"
         android:gravity="center"
         android:text="@string/wechat_timeline"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/qq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/wechat_friend"
+        android:drawablePadding="5dp"
+        android:drawableTop="@drawable/selector_share_qq"
+        android:gravity="center"
+        android:text="@string/QQ_friend"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/qzone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/wechat_friend"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/wechat_timeLine"
+        android:drawablePadding="5dp"
+        android:drawableTop="@drawable/selector_share_qzone"
+        android:gravity="center"
+        android:text="@string/Qzone"
         android:textSize="18dp"/>
 
 
