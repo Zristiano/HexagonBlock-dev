@@ -18,6 +18,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentManager;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -452,12 +453,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private void showRankDialog()
     {
-        if (rankDialog == null)
-        {
-            rankDialog = new RankDialog();
-        }
+
+        rankDialog = new RankDialog();
         rankDialog.setScore(scoreManager.getSumScore());
-        rankDialog.show(getSupportFragmentManager(), null);
+        rankDialog.show(getSupportFragmentManager(), "RankDialog");
     }
 
     private void startScaleAnim(View view)

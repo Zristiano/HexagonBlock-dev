@@ -1,4 +1,4 @@
-package com.example.yuanmengzeng.hexagonblock.RankList;
+package com.example.yuanmengzeng.hexagonblock.Http;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -7,6 +7,9 @@ import java.net.SocketTimeoutException;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.json.JSONException;
 
+import com.example.yuanmengzeng.hexagonblock.Http.HttpUtils;
+import com.example.yuanmengzeng.hexagonblock.Http.IRequestListener;
+import com.example.yuanmengzeng.hexagonblock.Http.IUiListener;
 import com.example.yuanmengzeng.hexagonblock.ZYMLog;
 
 import android.content.Context;

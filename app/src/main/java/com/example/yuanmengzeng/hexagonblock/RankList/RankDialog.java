@@ -1,8 +1,6 @@
 package com.example.yuanmengzeng.hexagonblock.RankList;
 
 import java.util.Random;
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -15,6 +13,9 @@ import android.view.ViewGroup;
 import com.example.yuanmengzeng.hexagonblock.Account.AccountInfo;
 import com.example.yuanmengzeng.hexagonblock.Account.AccountUtils;
 import com.example.yuanmengzeng.hexagonblock.Encipher.ThirdDESUtils;
+import com.example.yuanmengzeng.hexagonblock.Http.BaseApi;
+import com.example.yuanmengzeng.hexagonblock.Http.HttpUtils;
+import com.example.yuanmengzeng.hexagonblock.Http.IUiListener;
 import com.example.yuanmengzeng.hexagonblock.QQ.LoginListner;
 import com.example.yuanmengzeng.hexagonblock.R;
 import com.example.yuanmengzeng.hexagonblock.URL;
@@ -58,10 +59,12 @@ public class RankDialog extends android.support.v4.app.DialogFragment implements
 
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.Golden));
 
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        // viewPager.addOnPageChangeListener(new
+        // TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        // tabLayout.setOnTabSelectedListener(new
+        // TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
-        // tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
 
         mRoot.findViewById(R.id.left_btn).setOnClickListener(this);
         mRoot.findViewById(R.id.right_btn).setOnClickListener(this);
@@ -71,18 +74,27 @@ public class RankDialog extends android.support.v4.app.DialogFragment implements
 
     private void initFragment()
     {
-        tabLayout.removeAllTabs();
+        // tabLayout.removeAllTabs();
 
-        pagerAdapter.addFragment(new BaseRankFragment());
+        pagerAdapter.addFragment(new AllTopListFragment());
         TabLayout.Tab tab1 = tabLayout.newTab();
         tab1.setCustomView(R.layout.tab_item);
-        tabLayout.addTab(tab1);
+        // tabLayout.addTab(tab1);
 
-        pagerAdapter.addFragment(new BaseRankFragment());
+        pagerAdapter.addFragment(new PersonalTopListFragment());
         TabLayout.Tab tab2 = tabLayout.newTab();
         tab2.setCustomView(R.layout.tab_item);
-        tabLayout.addTab(tab2);
+        // tabLayout.addTab(tab2);
     }
+
+    @Override
+    public void dismiss()
+    {
+//        super.dismiss();
+        ZYMLog.info("ZYM dismiss");
+        dismissAllowingStateLoss();
+    }
+
 
     public void setScore(int score)
     {

@@ -1,4 +1,4 @@
-package com.example.yuanmengzeng.hexagonblock.RankList;
+package com.example.yuanmengzeng.hexagonblock.Http;
 
 /**
  * 服务器端返回数据基类
