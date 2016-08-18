@@ -1,14 +1,19 @@
 package com.example.yuanmengzeng.hexagonblock.RankList;
 
+import org.json.JSONObject;
+
 import java.util.Random;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.yuanmengzeng.hexagonblock.Account.AccountInfo;
 import com.example.yuanmengzeng.hexagonblock.Account.AccountUtils;
@@ -136,7 +141,6 @@ public class RankDialog extends android.support.v4.app.DialogFragment implements
             try
             {
                 bundle.putString("data", ThirdDESUtils.encode(data, index));
-
             }
             catch (Exception e)
             {
@@ -145,23 +149,45 @@ public class RankDialog extends android.support.v4.app.DialogFragment implements
             HttpUtils.requestAsync(getActivity(), URL.UPLOAD_SCORE, bundle, null, HttpUtils.GET, 0,
                     new BaseApi.BaseRequestListener(getActivity(), new IUiListener()
                     {
-
                         @Override
                         public void onComplete(String result)
                         {
                             ZYMLog.info("result is " + result);
+                            try {
+                                JSONObject json = new JSONObject(result);
+                                int errorCode = json.optInt("errorCode", -1);
+                                String message = json.optString("message", getString(R.string.load_fail));
+                                if (errorCode != 0) {
+                                    onError(message);
+                                    return;
+                                }
+                                if (pagerAdapter == null) {
+                                    return;
+                                }
+                                for (int i = 0; i < pagerAdapter.getCount(); i++) {
+                                    Fragment fragment = pagerAdapter.getItem(i);
+                                    // 更新数据
+                                    if (fragment instanceof BaseRankFragment) {
+                                        ((BaseRankFragment) fragment).loadData();
+                                    }
+                                }
+                                return;
+                            } catch (Exception e) {
+                                ZYMLog.error("result is " + e);
+                            }
+                            onError(getString(R.string.parse_data_error));
                         }
 
                         @Override
                         public void onError(String error)
                         {
-
+                            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onCancel()
                         {
-
+                            Toast.makeText(getActivity(), getString(R.string.load_fail), Toast.LENGTH_SHORT).show();
                         }
                     }));
             return;

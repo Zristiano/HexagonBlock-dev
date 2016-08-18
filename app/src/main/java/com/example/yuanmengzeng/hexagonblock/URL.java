@@ -8,4 +8,6 @@ public class URL
     public static final String UPLOAD_SCORE = "http://120.24.93.248/hexfrvr/save";
 
     public static final String GET_TOP_LIST = "http://120.24.93.248/hexfrvr/list";
+
+    public static final String GET_PERSONAL_LIST = "http://120.24.93.248/hexfrvr/list/%s";
 }
