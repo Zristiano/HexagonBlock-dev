@@ -20,14 +20,14 @@ import com.example.yuanmengzeng.hexagonblock.ZYMLog;
 public class ViewPagerAdapter extends FragmentStatePagerAdapter
 {
 
-    private List<BaseRankFragment> rankFragments = new ArrayList<>();
+    private List<Fragment> rankFragments = new ArrayList<>();
 
     public ViewPagerAdapter(FragmentManager fm)
     {
         super(fm);
     }
 
-    public void addFragment(BaseRankFragment fragment)
+    public void addFragment(Fragment fragment)
     {
         rankFragments.add(fragment);
     }

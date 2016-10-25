@@ -9,9 +9,9 @@ public class RespModel<T> implements Serializable
 {
     private static final long serialVersionUID = 201608151139L;
 
-    int errorCode;
+    public int errorCode;
 
-    String message;
+    public String message;
 
-    T result;
+    public T result;
 }

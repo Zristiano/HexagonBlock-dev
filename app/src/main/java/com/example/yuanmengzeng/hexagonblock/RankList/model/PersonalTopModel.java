@@ -10,5 +10,5 @@ public class PersonalTopModel implements Serializable
 {
     private static final long serialVersionUID = 201608151140L;
 
-    public List<TopListItem> personalTopList;
+    public List<RankListItem> personalTopList;
 }

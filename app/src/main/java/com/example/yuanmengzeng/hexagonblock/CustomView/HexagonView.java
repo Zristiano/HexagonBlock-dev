@@ -188,14 +188,6 @@ public class HexagonView extends View
         canvas.scale(scale, scale, hexWidth / 2, hexHeight / 2);
         canvas.drawPath(linePath, linePaint);
 
-        /*
-         * PathShape pathShape = new PathShape(linePath,hexWidth,hexHeight);
-         * mShapeDrawable.setShape(pathShape);
-         * mShapeDrawable.getPaint().setColor(Color.BLUE);
-         * mShapeDrawable.setBounds(0, 0, (int) hexWidth, (int) hexHeight);
-         * canvas.scale(0.9f,0.9f,hexWidth/2,hexHeight/2);
-         * mShapeDrawable.draw(canvas);
-         */
     }
 
     @Override
@@ -317,7 +309,6 @@ public class HexagonView extends View
         hexContentColorResId = R.color.ver3_dark_gray;
         setTag(null);
         init();
-        // invalidate();
         requestLayout();
     }
 

@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import java.util.Random;
 
+import android.nfc.tech.IsoDep;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -23,6 +24,7 @@ import com.example.yuanmengzeng.hexagonblock.Http.HttpUtils;
 import com.example.yuanmengzeng.hexagonblock.Http.IUiListener;
 import com.example.yuanmengzeng.hexagonblock.QQ.LoginListner;
 import com.example.yuanmengzeng.hexagonblock.R;
+import com.example.yuanmengzeng.hexagonblock.RankList.model.RankListItem;
 import com.example.yuanmengzeng.hexagonblock.URL;
 import com.example.yuanmengzeng.hexagonblock.ZYMLog;
 
@@ -64,12 +66,10 @@ public class RankDialog extends android.support.v4.app.DialogFragment implements
 
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.Golden));
 
-        // viewPager.addOnPageChangeListener(new
-        // TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        // tabLayout.setOnTabSelectedListener(new
-        // TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
 
-        tabLayout.setupWithViewPager(viewPager);
+        // tabLayout.setupWithViewPager(viewPager);
 
         mRoot.findViewById(R.id.left_btn).setOnClickListener(this);
         mRoot.findViewById(R.id.right_btn).setOnClickListener(this);
@@ -79,27 +79,25 @@ public class RankDialog extends android.support.v4.app.DialogFragment implements
 
     private void initFragment()
     {
-        // tabLayout.removeAllTabs();
+        tabLayout.removeAllTabs();
 
         pagerAdapter.addFragment(new AllTopListFragment());
         TabLayout.Tab tab1 = tabLayout.newTab();
         tab1.setCustomView(R.layout.tab_item);
-        // tabLayout.addTab(tab1);
+        tabLayout.addTab(tab1);
 
         pagerAdapter.addFragment(new PersonalTopListFragment());
         TabLayout.Tab tab2 = tabLayout.newTab();
         tab2.setCustomView(R.layout.tab_item);
-        // tabLayout.addTab(tab2);
+        tabLayout.addTab(tab2);
     }
 
     @Override
     public void dismiss()
     {
-//        super.dismiss();
+        super.dismiss();
         ZYMLog.info("ZYM dismiss");
-        dismissAllowingStateLoss();
     }
-
 
     public void setScore(int score)
     {
@@ -153,26 +151,33 @@ public class RankDialog extends android.support.v4.app.DialogFragment implements
                         public void onComplete(String result)
                         {
                             ZYMLog.info("result is " + result);
-                            try {
+                            try
+                            {
                                 JSONObject json = new JSONObject(result);
                                 int errorCode = json.optInt("errorCode", -1);
                                 String message = json.optString("message", getString(R.string.load_fail));
-                                if (errorCode != 0) {
+                                if (errorCode != 0)
+                                {
                                     onError(message);
                                     return;
                                 }
-                                if (pagerAdapter == null) {
+                                if (pagerAdapter == null)
+                                {
                                     return;
                                 }
-                                for (int i = 0; i < pagerAdapter.getCount(); i++) {
+                                for (int i = 0; i < pagerAdapter.getCount(); i++)
+                                {
                                     Fragment fragment = pagerAdapter.getItem(i);
                                     // 更新数据
-                                    if (fragment instanceof BaseRankFragment) {
+                                    if (fragment instanceof BaseRankFragment)
+                                    {
                                         ((BaseRankFragment) fragment).loadData();
                                     }
                                 }
                                 return;
-                            } catch (Exception e) {
+                            }
+                            catch (Exception e)
+                            {
                                 ZYMLog.error("result is " + e);
                             }
                             onError(getString(R.string.parse_data_error));
@@ -209,5 +214,6 @@ public class RankDialog extends android.support.v4.app.DialogFragment implements
         });
 
     }
+
 
 }

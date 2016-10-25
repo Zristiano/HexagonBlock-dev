@@ -1,6 +1,7 @@
 package com.example.yuanmengzeng.hexagonblock.RankList.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,12 +14,12 @@ public class AllTopModel implements Serializable
     /**
      * 总榜
      */
-    public List<TopListItem> allTopList;
+    public List<RankListItem> allTopList = new ArrayList<>();
 
     /**
      * 个人最好成绩
      */
-    public TopListItem personalBestRank ;
+    public RankListItem personalBestRank ;
 
 
 }

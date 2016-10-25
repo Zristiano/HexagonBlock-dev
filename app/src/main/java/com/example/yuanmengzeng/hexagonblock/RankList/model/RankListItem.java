@@ -5,28 +5,28 @@ import java.io.Serializable;
 /**
  * Created by yuanmengzeng on 2016/8/15.
  */
-public class TopListItem implements Serializable
+public class RankListItem implements Serializable
 {
     private static final long serialVersionUID = 201608151137L;
 
     /**
      * 账号Id
      */
-    String openid;
+    public String openid;
 
-    String name;
+    public String name;
 
-    int score;
+    public int score;
 
     /**
      * 头像url
      */
-    String avatar;
+    public String avatar;
 
-    String addTime;
+    public String addTime;
 
     /**
      * 排名
      */
-    int rank;
+    public int rank;
 }
