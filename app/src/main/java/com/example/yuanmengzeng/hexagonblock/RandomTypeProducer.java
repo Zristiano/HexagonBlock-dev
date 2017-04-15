@@ -2,6 +2,7 @@ package com.example.yuanmengzeng.hexagonblock;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
@@ -18,7 +19,9 @@ public class RandomTypeProducer
 
     private Integer sum = 0;
 
-    TreeMap<Integer, Integer> randomContainer = new TreeMap<>();
+    private int type[];
+
+    // HashMap<Integer, Integer> randomContainer = new HashMap<>();
 
     private SecureRandom secureRandom; // 产生随机数类
 
@@ -43,6 +46,7 @@ public class RandomTypeProducer
         {
             sum += typeCount[i]; // type频数总和
         }
+        type = new int[sum];
 
         LinkedList<Integer> numList = new LinkedList<>(); // 计数器列表
         for (int i = 0; i < sum; i++)
@@ -60,7 +64,8 @@ public class RandomTypeProducer
                 if (typeCount[random] > 0)
                 {
                     typeCount[random]--; // 减去该类型的频数
-                    randomContainer.put(count, random);
+                    // randomContainer.put(count, random);
+                    type[count] = random;
                     numList.remove(countOrder); // 删除使用过的key
                     break;
                 }
@@ -78,7 +83,8 @@ public class RandomTypeProducer
     public Integer getType()
     {
         Integer key = secureRandom.nextInt(sum);
-        return randomContainer.get(key);
+        // return randomContainer.get(key);
+        return type[key];
     }
 
 }

@@ -4,12 +4,11 @@ import java.lang.ref.WeakReference;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Queue;
-import junit.framework.Test;
+import yuanmengzeng.donwload.DownloadEntity;
+
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,7 +17,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,6 +38,9 @@ import com.example.yuanmengzeng.hexagonblock.RankList.RankDialog;
 import com.example.yuanmengzeng.hexagonblock.Share.DiamondDialog;
 import com.example.yuanmengzeng.hexagonblock.Share.MenuPopWindow;
 import com.example.yuanmengzeng.hexagonblock.Share.ShareDialog;
+import com.example.yuanmengzeng.hexagonblock.download.DownloadDialog;
+import com.example.yuanmengzeng.hexagonblock.download.DownloadService;
+import com.example.yuanmengzeng.hexagonblock.download.DownloadTestAcitivity;
 import com.tencent.tauth.Tencent;
 
 /**
@@ -95,6 +97,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private RankDialog rankDialog;
 
+    private DownloadDialog downloadDialog;
+
     private int diamondScore; // 加钻石的门槛分数
 
     @Override
@@ -134,24 +138,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         menuList = findViewById(R.id.menu_list);
         menuList.setOnClickListener(this);
-
         hexblock.setHexContentColor(getResources().getColor(R.color.yellow));
 
+        /**** 随机数测验 *****/
         // for (int i = 0; i < positinHandler.getRandomTypeProducer().getSum()
         // * 100; i++)
         // {
         // positinHandler.changeBlockTypeRandomly(leftBlock);
         // }
+        // ZYMLog.info("counter type is " + positinHandler.counter);
+        /******************/
+
         findViewById(R.id.animatorTest).setOnClickListener(this);
         diamondView = (DiamondView) findViewById(R.id.diamond);
         diamondView.setOnClickListener(this);
 
         diamondScore = CommonData.STATE_SCORE_LEVEl;
+
     }
 
     private void initCoverView()
     {
-
         coverImg = (ImageView) findViewById(R.id.cover_image);
         cover = findViewById(R.id.cover);
         cover.setVisibility(View.VISIBLE);
@@ -270,10 +277,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 break;
             case R.id.share_3d:
-                shareScore();
+                Intent intent1 = new Intent(MainActivity.this, DownloadService.class);
+                // String url =
+                // "http://res.wx.qq.com/voice/getvoice?mediaid=MzA4MTAxMzcxNl8yNjQ5NTkzNjI1";
+                String url1 = "http://sqdd.myapp.com/myapp/qqteam/Androidlite/qqlite_3.5.0.660_android_r108360_GuanWang_537047121_release_10000484.apk";
+                // String url = "http://120.24.93.248/app/HexagonBlock.apk";
+                intent1.putExtra(DownloadService.URL, url1);
+                MainActivity.this.startService(intent1);
+                // shareScore();
                 break;
             case R.id.reboot_game_3d:
-                reStartGame();
+                Intent intent = new Intent(MainActivity.this, DownloadService.class);
+                String url = "http://res.wx.qq.com/voice/getvoice?mediaid=MzA4MTAxMzcxNl8yNjQ5NTkzNjI1";
+                // String url =
+                // "http://sqdd.myapp.com/myapp/qqteam/Androidlite/qqlite_3.5.0.660_android_r108360_GuanWang_537047121_release_10000484.apk";
+                // String url = "http://120.24.93.248/app/HexagonBlock.apk";
+                intent.putExtra(DownloadService.URL, url);
+                MainActivity.this.startService(intent);
+                // reStartGame();
                 break;
             case R.id.menu_list:
                 soundManager.playMenuSound();
@@ -287,6 +308,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.rank_list:
                 showRankDialog();
+                break;
+            case R.id.download:
+                showDownloadDialog();
+                // Intent intent2 = new Intent(MainActivity.this,
+                // DownloadTestAcitivity.class);
+                // startActivity(intent2);
                 break;
         }
     }
@@ -453,10 +480,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private void showRankDialog()
     {
-
         rankDialog = new RankDialog();
         rankDialog.setScore(scoreManager.getSumScore());
         rankDialog.show(getSupportFragmentManager(), "RankDialog");
+    }
+
+    private void showDownloadDialog()
+    {
+        downloadDialog = new DownloadDialog();
+        // downloadDialog.setShowsDialog(true);
+        downloadDialog.show(getSupportFragmentManager(), "DownloadDialog");
     }
 
     private void startScaleAnim(View view)

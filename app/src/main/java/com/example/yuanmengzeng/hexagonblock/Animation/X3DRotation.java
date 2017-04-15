@@ -6,7 +6,7 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
 /**
- * 沿Y轴的3d旋转
+ * 沿X轴的3d旋转
  * Created by yuanmengzeng on 2016/7/8.
  */
 public class X3DRotation extends Animation {

@@ -38,6 +38,8 @@
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
 
+    <style name="download_dialog" parent="rank_list_dialog"/>
+
 
     <style name="diamond_dialog" parent="share_dialog">
         <item name="android:backgroundDimAmount">0.5</item>

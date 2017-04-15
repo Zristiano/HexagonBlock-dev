@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.yuanmengzeng.hexagonblock.Account.AccountInfo;
@@ -46,10 +47,21 @@ public class RankDialog extends android.support.v4.app.DialogFragment implements
      */
     private int score;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setStyle(STYLE_NO_TITLE, R.style.rank_list_dialog);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        if (mRoot != null)
+        {
+            return mRoot;
+        }
         mRoot = inflater.inflate(R.layout.rank_dialog, container, false);
 
         ViewGroup.LayoutParams lp = mRoot.findViewById(R.id.rank_layout).getLayoutParams();
@@ -99,6 +111,27 @@ public class RankDialog extends android.support.v4.app.DialogFragment implements
         ZYMLog.info("ZYM dismiss");
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        ZYMLog.info("ZYM onSaveInstanceState");
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        ZYMLog.info("ZYM onStart");
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        ZYMLog.info("ZYM onStop");
+    }
+
     public void setScore(int score)
     {
         this.score = score;
@@ -108,7 +141,6 @@ public class RankDialog extends android.support.v4.app.DialogFragment implements
     public void show(FragmentManager manager, String tag)
     {
         super.show(manager, tag);
-        setStyle(STYLE_NO_TITLE, R.style.rank_list_dialog);
     }
 
     @Override

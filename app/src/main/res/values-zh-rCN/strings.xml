@@ -1,0 +1,27 @@
+<!-- Localizable created with localio. DO NOT MODIFY. -->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">六边形密图</string>
+    <string name="share_title">本充电宝玩了<xliff:g>%s</xliff:g>分</string>
+    <string name="share_desc1">别激动，听首歌熏陶下再来战！</string>
+    <string name="wechat_friend">微信好友</string>
+    <string name="wechat_timeline">朋友圈</string>
+    <string name="QQ_friend">QQ好友</string>
+    <string name="Qzone">QQ空间</string>
+    <string name="share_desc2">我玩到了<xliff:g>%s</xliff:g>分，超过<xliff:g>%s</xliff:g>分开启隐藏福利！</string>
+    <string name="diamond_desc">钻石可将填充棋子变成想要的形状，每变换一次形状，消耗一颗钻石，每<xliff:g>%s</xliff:g>分获得一颗钻石。您当前拥有钻石颗数：<xliff:g>%s</xliff:g></string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="use_diamond_hint">没有多余的空间放置棋子了，要使用钻石吗</string>
+    <string name="exit">退出</string>
+    <string name="continue_game">继续游戏</string>
+    <string name="use_diamon">使用钻石</string>
+    <string name="close">关闭</string>
+    <string name="upload_score">上传得分</string>
+    <string name="loading">数据加载中...</string>
+    <string name="load_fail">加载失败</string>
+    <string name="parse_data_error">数据解析异常</string>
+    <string name="not_login">未登录，请先登录</string>
+    <string name="retry">请重试</string>
+    <string name="download_manager">下载管理</string>
+    <string name="delete">删除</string>
+</resources>

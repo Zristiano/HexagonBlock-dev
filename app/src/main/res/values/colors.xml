@@ -938,4 +938,7 @@
     <color name="diamond_dialog_bg">#44000000</color>
     <color name="confirm_disable">#44dcdcdc</color>
     <color name="game_yellow">#ea8010</color>
+    <color name="wave_color">#99e8b468</color>
+    <color name="icon_normal">#ea8010</color>
+    <color name="icon_pressed">#f4680a</color>
 </resources>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -14,6 +15,7 @@ import android.widget.FrameLayout;
 import com.example.yuanmengzeng.hexagonblock.CommonData;
 import com.example.yuanmengzeng.hexagonblock.QQ.QQLogin;
 import com.example.yuanmengzeng.hexagonblock.R;
+import com.example.yuanmengzeng.hexagonblock.ZYMLog;
 
 /**
  * 分享dialog Created by yuanmengzeng on 2016/7/7.
@@ -62,6 +64,7 @@ public class ShareDialog extends Dialog implements View.OnClickListener
         wechatTmLn = findViewById(R.id.wechat_timeLine);
         qqFrd = findViewById(R.id.qq);
         qzone = findViewById(R.id.qzone);
+        showIcon(false);
 
         View container = findViewById(R.id.share_container);
         container.setLayoutParams(new FrameLayout.LayoutParams(screenwidth, screenHeight));
@@ -94,36 +97,48 @@ public class ShareDialog extends Dialog implements View.OnClickListener
         }
         if (isEnterAnimEnable)
         {
-            startEnterAnim();
-            isEnterAnimEnable = false;
+            new Handler().postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    startEnterAnim();
+                    isEnterAnimEnable = false;
+                }
+            }, 30);
         }
     }
 
     private void startEnterAnim()
     {
+        if (interpolator == null)
+        {
+            interpolator = new MyInterpolator();
+        }
 
         TranslateAnimation transAnim_wechat_friend = new TranslateAnimation(0, 0,
                 -wechatFrdLoc[1] - wechatFrd.getMeasuredHeight(), 0.0f);
-        transAnim_wechat_friend.setInterpolator(new MyInterpolator());
+        transAnim_wechat_friend.setInterpolator(interpolator);
         transAnim_wechat_friend.setDuration(300);
 
         TranslateAnimation transAnim_wechat_timeLine = new TranslateAnimation(0, 0,
                 -wechatTmLnLoc[1] - wechatTmLn.getMeasuredHeight(), 0.0f);
-        transAnim_wechat_timeLine.setInterpolator(new MyInterpolator());
+        transAnim_wechat_timeLine.setInterpolator(interpolator);
         transAnim_wechat_timeLine.setDuration(300);
 
         TranslateAnimation tranAnim_qq_friend = new TranslateAnimation(0, 0, screenHeight - qqFrdLoc[1], 0.0f);
-        tranAnim_qq_friend.setInterpolator(new MyInterpolator());
+        tranAnim_qq_friend.setInterpolator(interpolator);
         tranAnim_qq_friend.setDuration(300);
 
         TranslateAnimation transAnim_qzone = new TranslateAnimation(0, 0, screenHeight - qzoneLoc[1], 0.0f);
-        transAnim_qzone.setInterpolator(new MyInterpolator());
+        transAnim_qzone.setInterpolator(interpolator);
         transAnim_qzone.setDuration(300);
 
         wechatFrd.startAnimation(transAnim_wechat_friend);
         wechatTmLn.startAnimation(transAnim_wechat_timeLine);
         qqFrd.startAnimation(tranAnim_qq_friend);
         qzone.startAnimation(transAnim_qzone);
+        showIcon(true);
 
     }
 
@@ -165,6 +180,7 @@ public class ShareDialog extends Dialog implements View.OnClickListener
             public void onAnimationEnd(Animation animation)
             {
                 dismiss();
+                showIcon(false);
                 isEnterAnimEnable = true;
                 exitAnimIsRunning = false;
             }
@@ -180,6 +196,15 @@ public class ShareDialog extends Dialog implements View.OnClickListener
         qqFrd.startAnimation(transAnim_QQ_friend);
         qzone.startAnimation(transAnim_QZone);
 
+    }
+
+    private void showIcon(boolean isShow)
+    {
+        int visibility = isShow ? View.VISIBLE : View.INVISIBLE;
+        wechatFrd.setVisibility(visibility);
+        wechatTmLn.setVisibility(visibility);
+        qqFrd.setVisibility(visibility);
+        qzone.setVisibility(visibility);
     }
 
     @Override
@@ -208,8 +233,8 @@ public class ShareDialog extends Dialog implements View.OnClickListener
                 dismiss();
                 break;
             case R.id.qzone:
-                // shareToQQ(QQshare.SHARE_TO_QZONE);
-                QQLogin();
+                shareToQQ(QQshare.SHARE_TO_QZONE);
+                // QQLogin();
                 isEnterAnimEnable = true;
                 dismiss();
                 break;
@@ -239,6 +264,8 @@ public class ShareDialog extends Dialog implements View.OnClickListener
         QQLogin qqLogin = new QQLogin(activity, null);
         qqLogin.login();
     }
+
+    private MyInterpolator interpolator;
 
     class MyInterpolator extends OvershootInterpolator
     {

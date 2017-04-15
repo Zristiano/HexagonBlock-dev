@@ -52,7 +52,10 @@ dependencies {
     compile files('libs/libammsdk.jar')
     compile files('libs/mta-sdk-1.6.2.jar')
     compile files('libs/open_sdk_r5756.jar')
+    compile files('libs/download.jar')
     compile 'com.android.support:design:23.3.0'
     //    testCompile "org.robolectric:robolectric:3.1.1"
+    compile 'com.daimajia.numberprogressbar:library:1.4@aar'
     compile project(':imageloader')
+    compile 'com.android.support:cardview-v7:23.1.0'
 }

@@ -95,6 +95,44 @@
             android:paddingRight="2dp"/>
     </FrameLayout>
 
+    <FrameLayout
+        android:id="@+id/download"
+        android:layout_width="@dimen/menu_size"
+        android:layout_height="@dimen/menu_size"
+        android:background="@drawable/selector_gray_menu"
+        >
+
+        <ImageView
+            android:layout_width="@dimen/menu_size"
+            android:layout_height="@dimen/menu_size"
+            android:layout_gravity="center_horizontal"
+            android:padding="@dimen/menu_pading"
+            android:src="@drawable/selector_download_button"
+            android:visibility="visible"/>
+
+        <com.example.yuanmengzeng.hexagonblock.CustomView.CustomWaveView
+            android:id="@+id/waveBg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"/>
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/menu_divider_4"
+        android:layout_width="@dimen/menu_size"
+        android:layout_height="0.5dp"
+        android:background="#33FFFFFF">
+
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="0.5dp"
+            android:layout_gravity="center"
+            android:background="#33FFFFFF"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"/>
+    </FrameLayout>
+
     <ImageView
         android:id="@+id/reboot_game_3d"
         android:layout_width="@dimen/menu_size"

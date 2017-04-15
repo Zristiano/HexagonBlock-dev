@@ -449,7 +449,7 @@ public class HexagonPositinHandler
             counter.put(type, count);
         }
 
-        ZYMLog.info("counter type is " + counter);
+//        ZYMLog.info("counter type is " + counter);
     }
 
     public RandomTypeProducer getRandomTypeProducer()

@@ -1,8 +1,6 @@
 package com.example.yuanmengzeng.hexagonblock.QQ;
 
-import org.w3c.dom.Text;
 import android.app.Activity;
-import android.text.TextUtils;
 
 import com.example.yuanmengzeng.hexagonblock.CommonData;
 import com.example.yuanmengzeng.hexagonblock.CommonUtils;

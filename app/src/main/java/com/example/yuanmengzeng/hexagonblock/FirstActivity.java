@@ -19,9 +19,8 @@ import android.widget.ImageView;
 /**
  * 启动activity，用于显示封面图 Created by yuanmengzeng on 2016/6/28.
  */
-public class FirstActivity extends Activity implements View.OnClickListener,SoundManager.SoundCallBack
+public class FirstActivity extends Activity implements View.OnClickListener, SoundManager.SoundCallBack
 {
-
 
     private ImageView coverImg;
 
@@ -58,19 +57,21 @@ public class FirstActivity extends Activity implements View.OnClickListener,Soun
         coverTimerTask();
 
         final MyHandler myHandler = new MyHandler(new WeakReference<>(this));
-        myHandler.postDelayed(new Runnable() {
+        myHandler.postDelayed(new Runnable()
+        {
             @Override
-            public void run() {
-                if(isFinishing()) return;
+            public void run()
+            {
+                if (isFinishing())
+                    return;
                 ReqTimeThread reqTimeThread = new ReqTimeThread(myHandler);
                 reqTimeThread.start();
-//                soundManager = SoundManager.getInstance();
-//                soundManager.setSoundCallBack(FirstActivity.this);
-//                soundManager.playBgSound(FirstActivity.this,0);
-//                soundManager.initSound(FirstActivity.this);
+                // soundManager = SoundManager.getInstance();
+                // soundManager.setSoundCallBack(FirstActivity.this);
+                // soundManager.playBgSound(FirstActivity.this,0);
+                // soundManager.initSound(FirstActivity.this);
             }
-        },500);
-
+        }, 500);
 
     }
 
@@ -125,7 +126,8 @@ public class FirstActivity extends Activity implements View.OnClickListener,Soun
             @Override
             public void run()
             {
-                if(isFinishing())return;
+                if (isFinishing())
+                    return;
                 if (isNormalDay && cover.getVisibility() != View.GONE)
                 {
                     skimCover();
@@ -180,7 +182,7 @@ public class FirstActivity extends Activity implements View.OnClickListener,Soun
             }
             isNormalDay = true;
             // skimTimes = 0;
-            Intent intent = new Intent(this,MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -241,7 +243,7 @@ public class FirstActivity extends Activity implements View.OnClickListener,Soun
         if (month == 6 && day == 28)
         {
             isNormalDay = false;
-//            soundManager.playBgSound(FirstActivity.this,3);
+            // soundManager.playBgSound(FirstActivity.this,3);
         }
         else
         {
@@ -249,7 +251,6 @@ public class FirstActivity extends Activity implements View.OnClickListener,Soun
         }
         ZYMLog.info("ZYM month is " + month + "  day is " + day);
     }
-
 
     @Override
     protected void onDestroy()
@@ -259,7 +260,7 @@ public class FirstActivity extends Activity implements View.OnClickListener,Soun
             if (soundManager != null)
             {
                 soundManager.releaseAll();
-//                soundManager.clearSoundPoolCount();
+                // soundManager.clearSoundPoolCount();
             }
         }
         ZYMLog.info("service firstActivity onDestroy");

@@ -3,9 +3,11 @@
   <component name="EclipseCodeFormatter">
     <option name="defaultSettings" value="true" />
     <option name="formatter" value="ECLIPSE" />
-    <option name="id" value="1466145025667" />
+    <option name="id" value="1486347481785" />
+    <option name="importOrder" value="org;java;javax;android;com;" />
     <option name="name" value="default" />
-    <option name="pathToConfigFileJava" value="$USER_HOME$/Desktop/Code Style/PPTV Formatter 1.0.xml" />
+    <option name="optimizeImports" value="false" />
+    <option name="pathToConfigFileJava" value="$APPLICATION_HOME_DIR$/PPTV Formatter 1.0.xml" />
     <option name="selectedJavaProfile" value="PPTV Formatter Profile 1.0" />
   </component>
   <component name="EntryPointsManager">
