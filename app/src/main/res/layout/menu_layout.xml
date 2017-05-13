@@ -95,7 +95,7 @@
             android:paddingRight="2dp"/>
     </FrameLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/download"
         android:layout_width="@dimen/menu_size"
         android:layout_height="@dimen/menu_size"
@@ -115,7 +115,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"/>
-    </FrameLayout>
+        <ImageView
+            android:id="@+id/red_point"
+            android:layout_alignParentRight="true"
+            android:layout_margin="2dp"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:src="@drawable/red_point"/>
+    </RelativeLayout>
 
 
     <FrameLayout

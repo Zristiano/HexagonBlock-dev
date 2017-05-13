@@ -144,7 +144,6 @@ public abstract class ShapeImageView extends ImageView
     @Override
     protected void onDraw(Canvas canvas)
     {
-
         drawShapeImage(canvas, bitmapPaint);
     }
 

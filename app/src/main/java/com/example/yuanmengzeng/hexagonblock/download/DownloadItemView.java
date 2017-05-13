@@ -5,7 +5,6 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.os.AsyncTask;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -14,12 +13,10 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Scroller;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.example.yuanmengzeng.hexagonblock.R;
@@ -110,7 +107,7 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
 
     private void init()
     {
-        inflate(getContext(), R.layout.download_list_item, this);
+        inflate(getContext(), R.layout.download_list_item_processing, this);
         icon = (ImageView) findViewById(R.id.download_icon);
         progressBar = (NumberProgressBar) findViewById(R.id.numberProgressBar);
         controlBtn = (ImageView) findViewById(R.id.download_btn);
@@ -608,6 +605,7 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
         switch (v.getId())
         {
             case R.id.item_delete:
+                // deleteItemAnim(item.url);
                 listener.onDelete(item.url);
                 if (onDeleteBtnShowListener != null)
                 {
@@ -626,6 +624,49 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
             case R.id.download_btn:
                 listener.onPauseDownload(item.url);
         }
+    }
+
+    private void deleteItemAnim(String url)
+    {
+        ValueAnimator animator = ValueAnimator.ofInt(getHeight(), 0);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+        {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation)
+            {
+                ViewGroup.LayoutParams lp = getLayoutParams();
+                lp.height = (int) animation.getAnimatedValue();
+                setLayoutParams(lp);
+            }
+        });
+        animator.addListener(new Animator.AnimatorListener()
+        {
+            @Override
+            public void onAnimationStart(Animator animation)
+            {
+                listener.onDelete(item.url);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation)
+            {
+                // listener.onDelete(item.url);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation)
+            {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation)
+            {
+
+            }
+        });
+        animator.setDuration(300);
+        animator.start();
     }
 
     private OnDeleteBtnShowListener onDeleteBtnShowListener;

@@ -24,6 +24,8 @@ import com.example.yuanmengzeng.hexagonblock.ZYMLog;
 import com.example.yuanmengzeng.hexagonblock.download.DownloadDialog;
 import com.example.yuanmengzeng.hexagonblock.download.DownloadManager;
 import com.example.yuanmengzeng.hexagonblock.download.DownloadService;
+import com.example.yuanmengzeng.hexagonblock.model.UpgradeModel;
+import com.example.yuanmengzeng.hexagonblock.util.FileUtil;
 
 import java.lang.ref.WeakReference;
 import yuanmengzeng.donwload.OnDownloadProgressListener;
@@ -58,6 +60,8 @@ public class MenuPopWindow extends PopupWindow implements View.OnClickListener
     private boolean isbind = false;
 
     private int animationTime = 200;
+
+    private UpgradeModel upgradeModel;
 
     public MenuPopWindow(Context context, View.OnClickListener onClickListener)
     {
@@ -99,6 +103,16 @@ public class MenuPopWindow extends PopupWindow implements View.OnClickListener
         download3D = contentView.findViewById(R.id.download);
         download3D.setOnClickListener(onClickListener);
         waveView = (CustomWaveView) contentView.findViewById(R.id.waveBg);
+        Object obj = FileUtil.readModelFromFile(UpgradeModel.class);
+        if (obj != null && obj instanceof UpgradeModel) {
+            upgradeModel = (UpgradeModel) obj;
+            // TODO: 2017/5/13
+            if (upgradeModel.versionCode > 2) {
+                contentView.findViewById(R.id.red_point).setVisibility(View.VISIBLE);
+            } else {
+                contentView.findViewById(R.id.red_point).setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override

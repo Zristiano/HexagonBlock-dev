@@ -33,6 +33,7 @@ import com.example.yuanmengzeng.hexagonblock.CustomView.DiamondView;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HexagonHeap;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HexagonView;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HorizontalLineBlock;
+import com.example.yuanmengzeng.hexagonblock.Http.DataManager;
 import com.example.yuanmengzeng.hexagonblock.QQ.QQUiListener;
 import com.example.yuanmengzeng.hexagonblock.RankList.RankDialog;
 import com.example.yuanmengzeng.hexagonblock.Share.DiamondDialog;
@@ -41,6 +42,8 @@ import com.example.yuanmengzeng.hexagonblock.Share.ShareDialog;
 import com.example.yuanmengzeng.hexagonblock.download.DownloadDialog;
 import com.example.yuanmengzeng.hexagonblock.download.DownloadService;
 import com.example.yuanmengzeng.hexagonblock.download.DownloadTestAcitivity;
+import com.example.yuanmengzeng.hexagonblock.model.UpgradeModel;
+import com.example.yuanmengzeng.hexagonblock.util.FileUtil;
 import com.tencent.tauth.Tencent;
 
 /**
@@ -223,8 +226,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 reqTimeThread.start();
             }
         }, 500);
-
         coverTimerTask();
+        DataManager.getInstance().reqUpdateInfo(this);
     }
 
     @Override
@@ -277,24 +280,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 }
                 break;
             case R.id.share_3d:
-                Intent intent1 = new Intent(MainActivity.this, DownloadService.class);
-                // String url =
-                // "http://res.wx.qq.com/voice/getvoice?mediaid=MzA4MTAxMzcxNl8yNjQ5NTkzNjI1";
-                String url1 = "http://sqdd.myapp.com/myapp/qqteam/Androidlite/qqlite_3.5.0.660_android_r108360_GuanWang_537047121_release_10000484.apk";
-                // String url = "http://120.24.93.248/app/HexagonBlock.apk";
-                intent1.putExtra(DownloadService.URL, url1);
-                MainActivity.this.startService(intent1);
-                // shareScore();
+                shareScore();
                 break;
             case R.id.reboot_game_3d:
-                Intent intent = new Intent(MainActivity.this, DownloadService.class);
-                String url = "http://res.wx.qq.com/voice/getvoice?mediaid=MzA4MTAxMzcxNl8yNjQ5NTkzNjI1";
+                // Intent intent = new Intent(MainActivity.this,
+                // DownloadService.class);
+                // String url =
+                // "http://res.wx.qq.com/voice/getvoice?mediaid=MzA4MTAxMzcxNl8yNjQ5NTkzNjI1";
                 // String url =
                 // "http://sqdd.myapp.com/myapp/qqteam/Androidlite/qqlite_3.5.0.660_android_r108360_GuanWang_537047121_release_10000484.apk";
                 // String url = "http://120.24.93.248/app/HexagonBlock.apk";
-                intent.putExtra(DownloadService.URL, url);
-                MainActivity.this.startService(intent);
-                // reStartGame();
+                // intent.putExtra(DownloadService.URL, url);
+                // MainActivity.this.startService(intent);
+                reStartGame();
                 break;
             case R.id.menu_list:
                 soundManager.playMenuSound();

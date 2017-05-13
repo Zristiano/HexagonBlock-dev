@@ -79,17 +79,24 @@ public class DownloadRecyclerAdapter extends RecyclerView.Adapter<DownloadRecycl
         {
             return;
         }
+        // DownloadItem item = downloadItems.get(idx);
         notifyItemRemoved(idx);
-        long duration = animator.getRemoveDuration() + animator.getMoveDuration();
         downloadItems.remove(idx);
-        // new Handler().postDelayed(new Runnable()
-        // {
-        // @Override
-        // public void run()
-        // {
-        // notifyDataSetChanged();
-        // }
-        // }, duration);
+        // notifyItemInserted(idx - 2);
+        // downloadItems.add(idx - 2, item);
+        /*
+         * long duration = animator.getRemoveDuration() +
+         * animator.getMoveDuration(); new Handler().postDelayed(new
+         * Runnable() {
+         * @Override public void run() { notifyDataSetChanged(); } },
+         * duration);
+         */
+    }
+
+    @Override
+    public int getItemViewType(int position)
+    {
+        return super.getItemViewType(position);
     }
 
     @Override

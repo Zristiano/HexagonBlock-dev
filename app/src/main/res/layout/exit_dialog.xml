@@ -28,6 +28,7 @@
             android:gravity="center"
             android:text="@string/use_diamond_hint"
             android:textColor="@color/Golden"
+            android:textAllCaps="false"
             android:textSize="16dp"
             android:textStyle="bold"/>
     </RelativeLayout>
@@ -49,9 +50,10 @@
             android:layout_weight="1"
             android:background="@drawable/selector_gray_btn"
             android:gravity="center"
-            android:text="退出"
+            android:text="@string/exit"
+            android:textAllCaps="false"
             android:textColor="@color/detail_gray_white"
-            android:textSize="20sp"/>
+            android:textSize="15sp"/>
 
         <Button
             android:id="@+id/continue_game"
@@ -61,9 +63,10 @@
             android:layout_weight="1"
             android:background="@drawable/selector_blue_btn"
             android:gravity="center"
-            android:text="继续游戏"
+            android:textAllCaps="false"
+            android:text="@string/continue_game"
             android:textColor="@color/white"
-            android:textSize="20sp"/>
+            android:textSize="15sp"/>
 
     </LinearLayout>
 </LinearLayout>

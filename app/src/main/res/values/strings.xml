@@ -8,11 +8,11 @@
     <string name="Qzone">QQ zone</string>
     <string name="share_desc2">I have won <xliff:g>%s</xliff:g> points, with exceeding <xliff:g>%s</xliff:g> points to unveil hidden bonus!</string>
     <string name="diamond_desc">You can change a piece to desirable shape by using a diamond. You can obtain a diamond every <xliff:g>%s</xliff:g> points in total. Now, the number of your diamonds：<xliff:g>%s</xliff:g></string>
-    <string name="cancel">cancel</string>
-    <string name="confirm">confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
     <string name="use_diamond_hint">There is no suitable apace to place the pieces, do you want to use diamond?</string>
-    <string name="exit">exit</string>
-    <string name="continue_game">continue game</string>
+    <string name="exit">Exit</string>
+    <string name="continue_game">Continue Game</string>
     <string name="use_diamon">use diamond</string>
     <string name="close">close</string>
     <string name="upload_score">upload your points</string>
