@@ -2,11 +2,22 @@ package com.example.yuanmengzeng.hexagonblock.download;
 
 import android.os.Handler;
 import android.support.v7.graphics.drawable.DrawableWrapper;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.yuanmengzeng.hexagonblock.R;
 import com.example.yuanmengzeng.hexagonblock.ZYMLog;
+import com.example.yuanmengzeng.hexagonblock.download.data.BaseDownloadData;
+import com.example.yuanmengzeng.hexagonblock.download.data.ListDownloadedData;
+import com.example.yuanmengzeng.hexagonblock.download.data.ListDownloadingData;
+import com.example.yuanmengzeng.imageloader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +34,11 @@ import yuanmengzeng.donwload.DownloadItem;
 public class DownloadRecyclerAdapter extends RecyclerView.Adapter<DownloadRecyclerAdapter.DownloadViewHolder>
         implements OnDownloadItemListener
 {
+    public static final int TYPE_DOWNLOADING = 1;
 
-    private List<DownloadItem> downloadItems;
+    public static final int TYPE_TO_BE_DOWNLOAD = 2;
+
+    private List<BaseDownloadData> mDatas;
 
     private RecyclerView.ItemAnimator animator;
 
@@ -33,41 +47,82 @@ public class DownloadRecyclerAdapter extends RecyclerView.Adapter<DownloadRecycl
     public DownloadRecyclerAdapter(RecyclerView.ItemAnimator animator,
             DownloadItemView.OnDeleteBtnShowListener listener)
     {
-        downloadItems = new ArrayList<>();
         this.animator = animator;
         onDeleteBtnShowListener = listener;
+        mDatas = new ArrayList<>();
     }
 
-    public void addDatas(List<DownloadItem> items)
+    public void setDatas(List<BaseDownloadData> items)
     {
-        downloadItems.addAll(items);
+        mDatas.clear();
+        mDatas.addAll(items);
     }
 
     public void clearData()
     {
-        downloadItems.clear();
+        mDatas.clear();
     }
 
     @Override
     public DownloadViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        DownloadItemView itemView = new DownloadItemView(parent.getContext(), this);
-        itemView.setOnDeleteBtnShowListener(onDeleteBtnShowListener);
-        return new DownloadViewHolder(itemView);
+        if (viewType == TYPE_DOWNLOADING)
+        {
+            DownloadItemView itemView = new DownloadItemView(parent.getContext(), this);
+            itemView.setOnDeleteBtnShowListener(onDeleteBtnShowListener);
+            return new DownloadViewHolder(itemView);
+        }
+        else if (viewType == TYPE_TO_BE_DOWNLOAD)
+        {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.download_list_item_prospective,
+                    parent, false);
+            DownloadViewHolder holder = new DownloadViewHolder(view);
+            holder.titleTx = (TextView) view.findViewById(R.id.title);
+            holder.imgView = (ImageView) view.findViewById(R.id.img);
+            holder.btn = view.findViewById(R.id.download_btn);
+            holder.tipTx = (TextView) view.findViewById(R.id.tips);
+            return holder;
+        }
+        return new DownloadViewHolder(new LinearLayout(parent.getContext()));
     }
 
     @Override
     public void onBindViewHolder(DownloadViewHolder holder, int position)
     {
-
-        holder.fillData(downloadItems.get(position), position);
+        switch (holder.getItemViewType())
+        {
+            case TYPE_DOWNLOADING:
+                holder.fillData((ListDownloadedData) mDatas.get(position));
+                break;
+            case TYPE_TO_BE_DOWNLOAD:
+                final ListDownloadingData data = (ListDownloadingData) mDatas.get(position);
+                holder.titleTx.setText(data.title);
+                holder.tipTx.setText(data.tips);
+                if (TextUtils.isEmpty(data.img))
+                {
+                    holder.imgView.setImageResource(R.drawable.niubility);
+                }
+                else
+                {
+                    ImageLoader.loadPic(holder.imgView, data.img);
+                }
+                holder.btn.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        goToDownload(data);
+                    }
+                });
+                break;
+        }
 
     }
 
     @Override
     public int getItemCount()
     {
-        return downloadItems.size();
+        return mDatas.size();
     }
 
     @Override
@@ -79,11 +134,8 @@ public class DownloadRecyclerAdapter extends RecyclerView.Adapter<DownloadRecycl
         {
             return;
         }
-        // DownloadItem item = downloadItems.get(idx);
         notifyItemRemoved(idx);
-        downloadItems.remove(idx);
-        // notifyItemInserted(idx - 2);
-        // downloadItems.add(idx - 2, item);
+        mDatas.remove(idx);
         /*
          * long duration = animator.getRemoveDuration() +
          * animator.getMoveDuration(); new Handler().postDelayed(new
@@ -96,6 +148,14 @@ public class DownloadRecyclerAdapter extends RecyclerView.Adapter<DownloadRecycl
     @Override
     public int getItemViewType(int position)
     {
+        if (mDatas.get(position) instanceof ListDownloadedData)
+        {
+            return TYPE_DOWNLOADING;
+        }
+        else if (mDatas.get(position) instanceof ListDownloadingData)
+        {
+            return TYPE_TO_BE_DOWNLOAD;
+        }
         return super.getItemViewType(position);
     }
 
@@ -103,9 +163,8 @@ public class DownloadRecyclerAdapter extends RecyclerView.Adapter<DownloadRecycl
     public void onStartDownload(String urlString)
     {
         int idx = findItemIdx(urlString);
-        DownloadItem downloadItem = new DownloadItem();
-        downloadItem.url = downloadItems.get(downloadItems.size() - 1).url + new Random().nextInt(100);
-        downloadItems.add(idx, downloadItem);
+        BaseDownloadData item = new ListDownloadedData();
+        mDatas.add(idx, item);
         notifyItemInserted(idx);
     }
 
@@ -113,19 +172,24 @@ public class DownloadRecyclerAdapter extends RecyclerView.Adapter<DownloadRecycl
     public void onPauseDownload(String urlString)
     {
         int idx = findItemIdx(urlString);
-        int to = downloadItems.size() - 1;
+        int to = mDatas.size() - 1;
         notifyItemMoved(idx, to);
-        DownloadItem item = downloadItems.get(idx);
-        downloadItems.remove(idx);
-        downloadItems.add(to, item);
+        BaseDownloadData item = mDatas.get(idx);
+        mDatas.remove(idx);
+        mDatas.add(to, item);
+    }
+
+    private void goToDownload(ListDownloadingData data)
+    {
+
     }
 
     private int findItemIdx(String url)
     {
-        for (int i = 0; i < downloadItems.size(); i++)
+        for (int i = 0; i < mDatas.size(); i++)
         {
-            DownloadItem item = downloadItems.get(i);
-            if (item.url.equals(url))
+            BaseDownloadData item = mDatas.get(i);
+            if (item.downloadUrl.equals(url))
             {
                 return i;
             }
@@ -135,17 +199,24 @@ public class DownloadRecyclerAdapter extends RecyclerView.Adapter<DownloadRecycl
 
     class DownloadViewHolder extends RecyclerView.ViewHolder
     {
+        TextView titleTx;
+
+        TextView tipTx;
+
+        ImageView imgView;
+
+        View btn;
 
         DownloadViewHolder(View itemView)
         {
             super(itemView);
         }
 
-        void fillData(DownloadItem item, int position)
+        void fillData(ListDownloadedData data)
         {
             if (itemView instanceof DownloadItemView)
             {
-                ((DownloadItemView) itemView).setData(item, position);
+                ((DownloadItemView) itemView).setData(data);
             }
         }
     }

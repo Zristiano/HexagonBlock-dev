@@ -23,4 +23,5 @@
     <string name="retry">please try again</string>
     <string name="download_manager">Download Manager</string>
     <string name="delete">delete</string>
+    <string name="new_version">upgrade to new version:</string>
 </resources>

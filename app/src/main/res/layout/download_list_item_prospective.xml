@@ -36,14 +36,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
                 android:layout_toRightOf="@id/img"
                 android:gravity="center"
                 android:maxLines="2"
                 android:text="新版本升级:1.0.3"
                 android:textColor="@color/black"
-                android:textSize="19dp"/>
+                android:textSize="15dp"/>
         </RelativeLayout>
 
         <TextView
@@ -67,6 +65,4 @@
             android:textColor="@color/white"
             android:textSize="15dp"/>
     </LinearLayout>
-
-
 </android.support.v7.widget.CardView>

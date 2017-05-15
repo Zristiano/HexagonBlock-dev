@@ -60,15 +60,12 @@ public class DownloadTestAcitivity extends Activity implements View.OnClickListe
             @Override
             public void onShowHide(DownloadItemView view, boolean isShow)
             {
-                if (isShow)
-                {
-                    recyclerView.setDeleteBtnShowView(view,isShow);
-                }
+                recyclerView.setDeleteBtnShowView(view, isShow);
             }
         });
         // List<DownloadItem> downloadItems =
         // DownloadUtil.getCompleteDownload(getContext());
-        adapter.addDatas(createItems());
+        // adapter.addDatas(createItems());
         recyclerView.setAdapter(adapter);
     }
 

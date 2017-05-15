@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.example.yuanmengzeng.hexagonblock.R;
 import com.example.yuanmengzeng.hexagonblock.ZYMLog;
+import com.example.yuanmengzeng.hexagonblock.download.data.ListDownloadedData;
+import com.example.yuanmengzeng.hexagonblock.download.data.ListDownloadingData;
 
 import yuanmengzeng.donwload.DownloadItem;
 
@@ -68,9 +70,7 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
 
     private OnDownloadItemListener listener;
 
-    private int position;
-
-    private DownloadItem item;
+    private ListDownloadedData item;
 
     private int mTouchSlop;
 
@@ -125,7 +125,7 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
         ZYMLog.info("lp width -> " + lp.width);
     }
 
-    public void setData(DownloadItem item, int position)
+    public void setData(ListDownloadedData item)
     {
         deleteBtn.setSelected(item.isCompleted);
         if (item.isCompleted)
@@ -136,7 +136,6 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
         {
             deleteBtn.setBackgroundColor(Color.BLACK);
         }
-        this.position = position;
         this.item = item;
     }
 
@@ -606,7 +605,7 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
         {
             case R.id.item_delete:
                 // deleteItemAnim(item.url);
-                listener.onDelete(item.url);
+                listener.onDelete(item.downloadUrl);
                 if (onDeleteBtnShowListener != null)
                 {
                     onDeleteBtnShowListener.onShowHide(DownloadItemView.this, false);
@@ -622,7 +621,7 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
                 controlBtn.setLayoutParams(lp);
                 break;
             case R.id.download_btn:
-                listener.onPauseDownload(item.url);
+                listener.onPauseDownload(item.downloadUrl);
         }
     }
 
@@ -644,7 +643,7 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
             @Override
             public void onAnimationStart(Animator animation)
             {
-                listener.onDelete(item.url);
+                listener.onDelete(item.downloadUrl);
             }
 
             @Override

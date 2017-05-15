@@ -18,6 +18,13 @@ import android.view.WindowManager;
 
 import com.example.yuanmengzeng.hexagonblock.R;
 import com.example.yuanmengzeng.hexagonblock.ZYMLog;
+import com.example.yuanmengzeng.hexagonblock.download.data.BaseDownloadData;
+import com.example.yuanmengzeng.hexagonblock.download.data.ListDownloadedData;
+import com.example.yuanmengzeng.hexagonblock.download.data.ListDownloadingData;
+import com.example.yuanmengzeng.hexagonblock.model.ListItemModel;
+import com.example.yuanmengzeng.hexagonblock.model.UpgradeModel;
+import com.example.yuanmengzeng.hexagonblock.util.DownloadPrefs;
+import com.example.yuanmengzeng.hexagonblock.util.FileUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +70,7 @@ public class DownloadDialog extends DialogFragment implements View.OnClickListen
         lp.height = getResources().getDisplayMetrics().heightPixels * 3 / 4;
         content.setLayoutParams(lp);
         initView();
+        initData();
         return mRoot;
     }
 
@@ -98,8 +106,32 @@ public class DownloadDialog extends DialogFragment implements View.OnClickListen
         });
         // List<DownloadItem> downloadItems =
         // DownloadUtil.getCompleteDownload(getContext());
-        adapter.addDatas(createItems());
         recyclerView.setAdapter(adapter);
+    }
+
+    private void initData()
+    {
+        List<DownloadItem> downloadItems = DownloadUtil.getCompleteDownload(getContext());
+        List<BaseDownloadData> datas = new ArrayList<>();
+        for (DownloadItem item : downloadItems)
+        {
+            String title = DownloadPrefs.getURLTitle(getActivity(), item.url);
+            String img = DownloadPrefs.getURLImg(getActivity(), item.url);
+            ListDownloadedData data = new ListDownloadedData(item, title, img);
+            datas.add(data);
+        }
+        UpgradeModel upgradeModel = (UpgradeModel) FileUtil.readModelFromFile(UpgradeModel.class);
+        if (upgradeModel != null && upgradeModel.versionCode > 2)
+        {
+            ListDownloadingData data = new ListDownloadingData();
+            data.title = getActivity().getString(R.string.new_version) + upgradeModel.versionName;
+            data.downloadUrl = upgradeModel.apkUrl;
+            data.img = "";
+            data.tips = upgradeModel.tips;
+            datas.add(data);
+        }
+        adapter.setDatas(datas);
+        adapter.notifyDataSetChanged();
     }
 
     private List<DownloadItem> createItems()
