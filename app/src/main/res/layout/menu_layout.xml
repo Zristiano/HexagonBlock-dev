@@ -70,6 +70,7 @@
             android:paddingRight="2dp"/>
     </FrameLayout>
 
+    <!--排行榜-->
     <ImageView
         android:id="@+id/rank_list"
         android:layout_width="@dimen/menu_size"
@@ -95,7 +96,9 @@
             android:paddingRight="2dp"/>
     </FrameLayout>
 
+    <!--下载-->
     <RelativeLayout
+        android:visibility="visible"
         android:id="@+id/download"
         android:layout_width="@dimen/menu_size"
         android:layout_height="@dimen/menu_size"

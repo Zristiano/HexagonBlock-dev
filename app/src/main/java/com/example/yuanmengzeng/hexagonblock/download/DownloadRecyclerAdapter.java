@@ -1,5 +1,7 @@
 package com.example.yuanmengzeng.hexagonblock.download;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.graphics.drawable.DrawableWrapper;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -87,7 +89,7 @@ public class DownloadRecyclerAdapter extends RecyclerView.Adapter<DownloadRecycl
     }
 
     @Override
-    public void onBindViewHolder(DownloadViewHolder holder, int position)
+    public void onBindViewHolder(final DownloadViewHolder holder, int position)
     {
         switch (holder.getItemViewType())
         {
@@ -111,7 +113,7 @@ public class DownloadRecyclerAdapter extends RecyclerView.Adapter<DownloadRecycl
                     @Override
                     public void onClick(View v)
                     {
-                        goToDownload(data);
+                        goToDownload(holder.itemView.getContext(), data);
                     }
                 });
                 break;
@@ -179,9 +181,21 @@ public class DownloadRecyclerAdapter extends RecyclerView.Adapter<DownloadRecycl
         mDatas.add(to, item);
     }
 
-    private void goToDownload(ListDownloadingData data)
+    private void goToDownload(Context context, ListDownloadingData data)
     {
-
+        int idx = findItemIdx(data.downloadUrl);
+        ListDownloadedData item = new ListDownloadedData();
+        item.title = data.title;
+        item.img = data.img;
+        item.downloadUrl = "http://res.wx.qq.com/voice/getvoice?mediaid=MzA4MTAxMzcxNl8yNjQ5NTkzNjI1";
+        item.isCompleted = false;
+        mDatas.remove(idx);
+        notifyItemRemoved(idx);
+        mDatas.add(0, item);
+        Intent intent = new Intent(context, DownloadService.class);
+        intent.putExtra(DownloadService.URL, item.downloadUrl);
+        context.startService(intent);
+        notifyItemInserted(0);
     }
 
     private int findItemIdx(String url)

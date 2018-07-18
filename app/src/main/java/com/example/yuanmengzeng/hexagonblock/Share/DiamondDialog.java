@@ -82,7 +82,7 @@ public class DiamondDialog extends Dialog implements View.OnClickListener
     {
         ((TextView) findViewById(R.id.diamond_sum)).setText("x" + diamondCount);
         ((TextView) findViewById(R.id.diamond_desc)).setText(
-                getContext().getString(R.string.diamond_desc, CommonData.STATE_SCORE_LEVEl, diamondCount));
+                getContext().getString(R.string.diamond_desc, CommonData.STATE_SCORE_LEVEl + "", diamondCount + ""));
 
         HorizontalLineBlock block;
         block = ((HorizontalLineBlock) findViewById(R.id.left_block));

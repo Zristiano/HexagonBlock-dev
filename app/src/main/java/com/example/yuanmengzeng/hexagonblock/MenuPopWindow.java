@@ -1,4 +1,4 @@
-package com.example.yuanmengzeng.hexagonblock.Share;
+package com.example.yuanmengzeng.hexagonblock;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -101,7 +101,7 @@ public class MenuPopWindow extends PopupWindow implements View.OnClickListener
         topList3D.setOnClickListener(onClickListener);
 
         download3D = contentView.findViewById(R.id.download);
-        download3D.setOnClickListener(onClickListener);
+        download3D.setOnClickListener(onClickListener /* this */);
         waveView = (CustomWaveView) contentView.findViewById(R.id.waveBg);
         Object obj = FileUtil.readModelFromFile(UpgradeModel.class);
         if (obj != null && obj instanceof UpgradeModel) {

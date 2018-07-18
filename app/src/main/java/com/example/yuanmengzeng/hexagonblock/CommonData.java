@@ -29,9 +29,9 @@ public class CommonData
             "http://120.24.93.248/mp3/3.mp3", "http://120.24.93.248/mp3/4.mp3", "http://120.24.93.248/mp3/5.mp3",
             "http://120.24.93.248/mp3/6.mp3", "http://120.24.93.248/mp3/7.mp3", "http://120.24.93.248/mp3/8.mp3"};
 
-    public final static int HEAP_BG[] = {R.drawable.heap_bg, R.drawable.eson_bg, R.drawable.rainbow_bg0,
-            R.drawable.rainbow_bg1, R.drawable.rainbow_bg2, R.drawable.rainbow_bg3, R.drawable.me_bg,
-            R.drawable.bruce_avatar_bg};
+    public final static int HEAP_BG[] = {R.drawable.heap_bg, R.drawable.rainbow_bg0, R.drawable.rainbow_bg1,
+            R.drawable.rainbow_bg2, R.drawable.rainbow_bg3, R.drawable.rainbow_bg4, R.drawable.zhu_tianze,
+            R.drawable.rainbow_bg6, R.drawable.rainbow_bg7, R.drawable.rainbow_bg8};
 
     // public final static int HEAP_BG[] =
     // {R.drawable.bruce_bg,R.drawable.bruce_bg0, R.drawable.rainbow_bg2,

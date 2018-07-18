@@ -118,6 +118,7 @@ public class DownloadService extends Service implements DownloadManager
         @Override
         public void onNewInfo(String url, long progress, long fileSize)
         {
+            ZYMLog.info("url->" + url + "   progress->" + progress + "   fileSize->" + fileSize);
             for (OnDownloadProgressListener l : listeners)
             {
                 l.onNewInfo(url, progress, fileSize);

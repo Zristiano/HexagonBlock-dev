@@ -4,7 +4,6 @@ import java.lang.ref.WeakReference;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
-import yuanmengzeng.donwload.DownloadEntity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -17,7 +16,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +26,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yuanmengzeng.hexagonblock.CustomView.DiamondView;
 import com.example.yuanmengzeng.hexagonblock.CustomView.HexagonHeap;
@@ -37,13 +36,9 @@ import com.example.yuanmengzeng.hexagonblock.Http.DataManager;
 import com.example.yuanmengzeng.hexagonblock.QQ.QQUiListener;
 import com.example.yuanmengzeng.hexagonblock.RankList.RankDialog;
 import com.example.yuanmengzeng.hexagonblock.Share.DiamondDialog;
-import com.example.yuanmengzeng.hexagonblock.Share.MenuPopWindow;
 import com.example.yuanmengzeng.hexagonblock.Share.ShareDialog;
 import com.example.yuanmengzeng.hexagonblock.download.DownloadDialog;
 import com.example.yuanmengzeng.hexagonblock.download.DownloadService;
-import com.example.yuanmengzeng.hexagonblock.download.DownloadTestAcitivity;
-import com.example.yuanmengzeng.hexagonblock.model.UpgradeModel;
-import com.example.yuanmengzeng.hexagonblock.util.FileUtil;
 import com.tencent.tauth.Tencent;
 
 /**
@@ -283,8 +278,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 shareScore();
                 break;
             case R.id.reboot_game_3d:
-                // Intent intent = new Intent(MainActivity.this,
-                // DownloadService.class);
+                Intent intent = new Intent(MainActivity.this,
+                        DownloadService.class);
                 // String url =
                 // "http://res.wx.qq.com/voice/getvoice?mediaid=MzA4MTAxMzcxNl8yNjQ5NTkzNjI1";
                 // String url =
@@ -305,10 +300,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 showDiamondDialog();
                 break;
             case R.id.rank_list:
-                showRankDialog();
+                Toast.makeText(this, "功能还在开发中 (๑*◡*๑)", Toast.LENGTH_SHORT).show();
+//                showRankDialog();
                 break;
             case R.id.download:
-                showDownloadDialog();
+                Toast.makeText(this, "功能还在开发中 (๑*◡*๑)", Toast.LENGTH_SHORT).show();
+
+                //showDownloadDialog();
+
+
                 // Intent intent2 = new Intent(MainActivity.this,
                 // DownloadTestAcitivity.class);
                 // startActivity(intent2);
@@ -633,7 +633,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         }
         if (month == 7 && day == 30)
         { // 7.30
-            isNormalDay = false;
+            isNormalDay = true;  //  TODO: 2018/5/8  生日的话改成false
             soundManager.playBgSound(3);
         }
         else

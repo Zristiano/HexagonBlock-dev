@@ -1,8 +1,5 @@
 package com.example.yuanmengzeng.hexagonblock.Share;
 
-import java.security.spec.MGF1ParameterSpec;
-import java.util.Random;
-import java.util.concurrent.RunnableFuture;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,7 +9,6 @@ import com.example.yuanmengzeng.hexagonblock.R;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXMusicObject;
-import com.tencent.mm.sdk.modelmsg.WXVideoObject;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -45,7 +41,7 @@ public class WeChat
     public void shareScore(int score, int order)
     {
 
-        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.julia_share); // R.drawable.julia_share
+        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.zhu_tianze); // R.drawable.julia_share
 
         WXWebpageObject webObj = new WXWebpageObject(CommonData.DOWNLOAD_WEB_URL);
 

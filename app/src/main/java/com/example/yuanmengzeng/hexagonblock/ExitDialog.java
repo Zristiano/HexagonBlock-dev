@@ -73,7 +73,7 @@ public class ExitDialog extends Dialog
                 rightBtn.setOnClickListener(exitOnClickListner);
                 break;
             case CommonData.TYPE_DIAMOND:
-                imageView.setImageResource(R.drawable.rainbow_fial);
+                imageView.setImageResource(R.drawable.zhu_tianze);
                 useDiamondHint.setVisibility(View.VISIBLE);
                 leftBtn.setText(getContext().getString(R.string.cancel));
                 rightBtn.setText(getContext().getString(R.string.use_diamon));

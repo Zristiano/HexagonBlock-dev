@@ -62,20 +62,22 @@
                 android:id="@+id/numberProgressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/download_icon"
+                android:layout_toLeftOf="@id/download_btn"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 custom:progress_current="53"
                 custom:progress_max="100"
                 custom:progress_reached_bar_height="1.5dp"
-
                 custom:progress_reached_color="#3498DB"
                 custom:progress_text_color="#3498DB"
                 custom:progress_text_offset="1dp"
                 custom:progress_text_size="12sp"
-
                 custom:progress_text_visibility="visible"
                 custom:progress_unreached_bar_height="0.75dp"
                 custom:progress_unreached_color="#CCCCCC"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"/>
+                />
 
         </RelativeLayout>
 

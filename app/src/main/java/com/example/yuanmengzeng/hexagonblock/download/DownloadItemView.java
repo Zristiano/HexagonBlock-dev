@@ -2,9 +2,13 @@ package com.example.yuanmengzeng.hexagonblock.download;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.os.IBinder;
 import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -24,7 +28,10 @@ import com.example.yuanmengzeng.hexagonblock.ZYMLog;
 import com.example.yuanmengzeng.hexagonblock.download.data.ListDownloadedData;
 import com.example.yuanmengzeng.hexagonblock.download.data.ListDownloadingData;
 
+import java.lang.ref.WeakReference;
 import yuanmengzeng.donwload.DownloadItem;
+import yuanmengzeng.donwload.DownloadUtil;
+import yuanmengzeng.donwload.OnDownloadProgressListener;
 
 /**
  * <P>
@@ -86,6 +93,10 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
 
     private boolean pendingRestractAnim = false;
 
+    private WeakReference<DownloadManager> dlMngerRef;
+
+    private boolean hasSetProgressListener = false;
+
     public DownloadItemView(Context context, OnDownloadItemListener listener)
     {
         super(context);
@@ -137,15 +148,57 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
             deleteBtn.setBackgroundColor(Color.BLACK);
         }
         this.item = item;
+        Intent intent = new Intent(getContext(), DownloadService.class);
+        intent.putExtra(DownloadService.URL, item.downloadUrl);
+        getContext().bindService(intent, serviceConn, 0);
     }
+
+    private OnDownloadProgressListener progressListener = new OnDownloadProgressListener()
+    {
+        @Override
+        public void onNewInfo(String s, long l, long l1)
+        {
+            if (item == null || !item.downloadUrl.equals(s))
+            {
+                return;
+            }
+            ZYMLog.info("curProgress-->" + l + "   all-->" + l1);
+            progressBar.setProgress((int) (l * 100 / l1));
+
+        }
+
+        @Override
+        public void onFinished(String s)
+        {
+            ZYMLog.info("onFinished-->" + s);
+        }
+
+        @Override
+        public void onError(String s, int i, String s1)
+        {
+            ZYMLog.error("download err -->" + s1 + "   url-->" + s);
+        }
+    };
+
+    private ServiceConnection serviceConn = new ServiceConnection()
+    {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service)
+        {
+            dlMngerRef = ((DownloadService.DownloadBinder) service).getDownloadManager();
+            setProgressListener();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name)
+        {
+            remvProgressListener();
+        }
+    };
 
     private float initialDownX = 0.0f;
 
     private float initialDownY = 0.0f;
-
-    private float lastDownX = 0.0f;
-
-    private float lastDownY = 0.0f;
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev)
@@ -161,14 +214,12 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
         {
             case MotionEvent.ACTION_DOWN:
                 requestParentDisallowInterceptTouchEvent(true); // 禁止上层view截取事件
-                initialDownX = lastDownX = MotionEventCompat.getX(ev, 0);
-                initialDownY = lastDownY = MotionEventCompat.getY(ev, 0);
+                initialDownX = MotionEventCompat.getX(ev, 0);
+                initialDownY = MotionEventCompat.getY(ev, 0);
                 break;
             case MotionEvent.ACTION_MOVE:
                 float nowX = MotionEventCompat.getX(ev, 0);
                 float nowY = MotionEventCompat.getY(ev, 0);
-                lastDownX = nowX;
-                lastDownY = nowY;
                 float dx = initialDownX - nowX;
                 float aDy = Math.abs(initialDownY - nowY);
                 ZYMLog.info("dx->" + dx + "    dy->" + aDy + "    slop->" + mTouchSlop);
@@ -220,8 +271,6 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
                 {
                     dragLayout(dx);
                 }
-                lastDownX = nowX;
-                lastDownY = nowY;
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
@@ -625,47 +674,36 @@ public class DownloadItemView extends FrameLayout implements View.OnClickListene
         }
     }
 
-    private void deleteItemAnim(String url)
+    @Override
+    protected void onAttachedToWindow()
     {
-        ValueAnimator animator = ValueAnimator.ofInt(getHeight(), 0);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+        super.onAttachedToWindow();
+    }
+
+    @Override
+    protected void onDetachedFromWindow()
+    {
+        super.onDetachedFromWindow();
+        getContext().unbindService(serviceConn);
+        remvProgressListener();
+    }
+
+    private void setProgressListener()
+    {
+        if (dlMngerRef != null && dlMngerRef.get() != null && !hasSetProgressListener)
         {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation)
-            {
-                ViewGroup.LayoutParams lp = getLayoutParams();
-                lp.height = (int) animation.getAnimatedValue();
-                setLayoutParams(lp);
-            }
-        });
-        animator.addListener(new Animator.AnimatorListener()
+            dlMngerRef.get().addOnDownloadProgressListener(progressListener);
+            hasSetProgressListener = true;
+        }
+    }
+
+    private void remvProgressListener()
+    {
+        if (dlMngerRef != null && dlMngerRef.get() != null && hasSetProgressListener)
         {
-            @Override
-            public void onAnimationStart(Animator animation)
-            {
-                listener.onDelete(item.downloadUrl);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation)
-            {
-                // listener.onDelete(item.url);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation)
-            {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation)
-            {
-
-            }
-        });
-        animator.setDuration(300);
-        animator.start();
+            dlMngerRef.get().removeOnDownloadProgressListener(progressListener);
+            hasSetProgressListener = false;
+        }
     }
 
     private OnDeleteBtnShowListener onDeleteBtnShowListener;

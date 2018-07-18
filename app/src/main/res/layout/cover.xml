@@ -10,8 +10,8 @@
         android:id="@+id/cover_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/rainbow_cover"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/zhu_tianze"/>
 
     <TextView
         android:id="@+id/skim_btn"
