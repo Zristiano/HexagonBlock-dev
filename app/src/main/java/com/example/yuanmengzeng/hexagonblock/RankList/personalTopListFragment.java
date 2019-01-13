@@ -1,5 +1,7 @@
 package com.example.yuanmengzeng.hexagonblock.RankList;
 
+import android.os.Bundle;
+
 import com.example.yuanmengzeng.hexagonblock.Account.AccountInfo;
 import com.example.yuanmengzeng.hexagonblock.Account.AccountUtils;
 import com.example.yuanmengzeng.hexagonblock.R;
@@ -24,8 +26,16 @@ public class PersonalTopListFragment extends BaseRankFragment<PersonalTopModel> 
     }
 
     @Override
+    protected Bundle genParams() {
+        Bundle params = new Bundle();
+        params.putString("username","Yuyang");
+        params.putInt("platform",1);
+        return params;
+    }
+
+    @Override
     protected void loadData() {
-        if (getActivity() == null) {
+        if (getActivity() == null || true) {
             return;
         }
         AccountInfo accountInfo = AccountUtils.getAccountInfo(getActivity());
@@ -40,6 +50,11 @@ public class PersonalTopListFragment extends BaseRankFragment<PersonalTopModel> 
     @Override
     protected PersonalTopModel parseRankInfo(String result) {
         return null;
+    }
+
+    @Override
+    protected void showRankList(PersonalTopModel data) {
+
     }
 
 }

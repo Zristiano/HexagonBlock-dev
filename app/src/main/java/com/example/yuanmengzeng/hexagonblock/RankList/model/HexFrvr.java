@@ -99,7 +99,7 @@ public class HexFrvr implements Serializable {
 
     @Override
     public String toString() {
-        return "HexFrvr [name=" + name + ", score=" + score + ", url=" + url + ", addTime=" + addTime + "]";
+        return "HexFrvr [username=" + name + ", score=" + score + ", url=" + url + ", time=" + addTime + "]";
     }
 
     public static HexFrvr paserFromJson(String jsonStr) {
@@ -112,7 +112,7 @@ public class HexFrvr implements Serializable {
             hexFrvr.openid = json.optString("openid");
             hexFrvr.url = json.optString("url");
             hexFrvr.score = json.optInt("score");
-            hexFrvr.name = json.optString("name");
+            hexFrvr.name = json.optString("username");
             hexFrvr.addTime = json.optString("add_time");
             return hexFrvr;
         } catch (Exception e) {

@@ -300,8 +300,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 showDiamondDialog();
                 break;
             case R.id.rank_list:
-                Toast.makeText(this, "功能还在开发中 (๑*◡*๑)", Toast.LENGTH_SHORT).show();
-//                showRankDialog();
+//                Toast.makeText(this, "功能还在开发中 (๑*◡*๑)", Toast.LENGTH_SHORT).show();
+                showRankDialog();
                 break;
             case R.id.download:
                 Toast.makeText(this, "功能还在开发中 (๑*◡*๑)", Toast.LENGTH_SHORT).show();

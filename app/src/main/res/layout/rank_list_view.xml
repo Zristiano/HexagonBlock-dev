@@ -4,24 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/own_best_rank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="个人排名"/>
+
+    <com.example.yuanmengzeng.hexagonblock.CustomView.pulllayout.PullLayout
         android:id="@+id/fragment_content"
+        android:layout_above="@id/own_best_rank"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_centerInParent="true">
 
-        <ListView
-            android:id="@+id/rank_list"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rank_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
 
-        <TextView
-            android:id="@+id/own_best_rank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="fragment"/>
-    </LinearLayout>
+    </com.example.yuanmengzeng.hexagonblock.CustomView.pulllayout.PullLayout>
+
+
 
     <TextView
         android:id="@+id/loading"

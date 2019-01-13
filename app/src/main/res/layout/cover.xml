@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/zhu_tianze"/>
+        android:src="@drawable/cover"/>
 
     <TextView
         android:id="@+id/skim_btn"

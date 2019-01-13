@@ -45,6 +45,10 @@ public class ZYMLog  {
         if(sLogEnabled) Log.i(getLogTag(), string);
     }
 
+    public static void info(String formatString, Object... args){
+        if (sLogEnabled) Log.i(getLogTag(),String.format(formatString,args));
+    }
+
     /**
      * 使用“类名_方法名_行数“作为tag打印日志
      * @param string 需要打印的信息(警告)

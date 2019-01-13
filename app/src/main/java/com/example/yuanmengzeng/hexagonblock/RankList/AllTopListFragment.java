@@ -1,30 +1,30 @@
 package com.example.yuanmengzeng.hexagonblock.RankList;
 
+import android.os.Bundle;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.ArrayList;
 
-import com.example.yuanmengzeng.hexagonblock.Http.BaseApi;
-import com.example.yuanmengzeng.hexagonblock.Http.IUiListener;
-import com.example.yuanmengzeng.hexagonblock.R;
-import com.example.yuanmengzeng.hexagonblock.RankList.model.AllTopModel;
-import com.example.yuanmengzeng.hexagonblock.RankList.model.HexFrvr;
-import com.example.yuanmengzeng.hexagonblock.RankList.model.TopResModel;
-import com.example.yuanmengzeng.hexagonblock.RespModel;
+import com.example.yuanmengzeng.hexagonblock.RankList.model.WorldRankModel;
 import com.example.yuanmengzeng.hexagonblock.URL;
 import com.example.yuanmengzeng.hexagonblock.ZYMLog;
 
 /**
  * 全榜 Created by yuanmengzeng on 2016/8/16.
  */
-public class AllTopListFragment extends BaseRankFragment<AllTopModel>
+public class AllTopListFragment extends BaseRankFragment<WorldRankModel>
 {
 
     @Override
     protected String genUrl()
     {
-        return URL.GET_TOP_LIST;
+        return URL.SCORE_RANK;
+    }
+
+    @Override
+    protected Bundle genParams() {
+        return null;
     }
 
     /**
@@ -34,16 +34,18 @@ public class AllTopListFragment extends BaseRankFragment<AllTopModel>
      * @return 总榜
      */
     @Override
-    protected AllTopModel parseRankInfo(String result)
+    protected WorldRankModel parseRankInfo(String result)
     {
-        AllTopModel allTopModel = new AllTopModel();
+        WorldRankModel worldRankModel = new WorldRankModel();
         try
         {
-            JSONArray jsonArray = new JSONArray(result);
-            for (int i = 0; i < jsonArray.length(); i++)
+            JSONObject json = new JSONObject(result);
+            JSONArray rankItemJsonArray = json.getJSONArray("rankList");
+            for (int i = 0; i < rankItemJsonArray.length(); i++)
             {
-                allTopModel.allTopList.add(ParseUtils.parseRankListItem(jsonArray.getJSONObject(i)));
+                worldRankModel.allTopList.add(ParseUtils.parseRankListItem(rankItemJsonArray.getJSONObject(i)));
             }
+            worldRankModel.scoreRank = json.optInt("individualRank",-1);
         }
         catch (JSONException e)
         {
@@ -51,7 +53,12 @@ public class AllTopListFragment extends BaseRankFragment<AllTopModel>
             return null;
         }
 
-        return allTopModel;
+        return worldRankModel;
+    }
+
+    @Override
+    protected void showRankList(WorldRankModel data) {
+        mAdapter.setData(data.allTopList);
     }
 
 }

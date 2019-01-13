@@ -1,6 +1,7 @@
 package com.example.yuanmengzeng.imageloader;
 
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -16,14 +17,14 @@ import android.widget.ImageView;
  */
 public class ImageLoadAsyncTask extends AsyncTask<String,Integer,Bitmap> {
 
-    private ImageView imageView ;
+    private WeakReference<ImageView> imageViewRef ;
 
     private String url;
 
     private ImageLoader.ImgLoaderCallBack callBack;
 
     public ImageLoadAsyncTask(ImageView imageView, ImageLoader.ImgLoaderCallBack callBack) {
-        this.imageView = imageView;
+        this.imageViewRef = new WeakReference<>(imageView);
         if(callBack!=null){
             this.callBack = callBack;
         }else {
@@ -71,7 +72,9 @@ public class ImageLoadAsyncTask extends AsyncTask<String,Integer,Bitmap> {
     protected void onPostExecute(Bitmap s) {
         super.onPostExecute(s);
         if(s==null)return;
-        imageView.setImageBitmap(s);
+        if (imageViewRef.get()!=null){
+            imageViewRef.get().setImageBitmap(s);
+        }
         callBack.onImgLoadSuccess();
         /** 加入文件缓存 */
         FileCache.getInstance().putBitmap(url,s);

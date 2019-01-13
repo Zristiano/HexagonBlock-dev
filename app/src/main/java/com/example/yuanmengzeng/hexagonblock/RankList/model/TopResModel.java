@@ -12,7 +12,7 @@ public class TopResModel implements Serializable
     /**
      * 总榜
      */
-    public AllTopModel allTop;
+    public WorldRankModel allTop;
 
     /**
      * 个人榜

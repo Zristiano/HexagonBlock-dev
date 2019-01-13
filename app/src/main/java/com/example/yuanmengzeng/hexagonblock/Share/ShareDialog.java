@@ -56,7 +56,6 @@ public class ShareDialog extends Dialog implements View.OnClickListener
 
     private void initView()
     {
-
         screenHeight = getContext().getResources().getDisplayMetrics().heightPixels;
         screenwidth = getContext().getResources().getDisplayMetrics().widthPixels;
 

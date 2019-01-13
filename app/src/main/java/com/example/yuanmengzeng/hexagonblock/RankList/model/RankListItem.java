@@ -9,12 +9,8 @@ public class RankListItem implements Serializable
 {
     private static final long serialVersionUID = 201608151137L;
 
-    /**
-     * 账号Id
-     */
-    public String openid;
 
-    public String name;
+    public String username;
 
     public int score;
 
@@ -23,10 +19,10 @@ public class RankListItem implements Serializable
      */
     public String avatar;
 
-    public String addTime;
+    public String time;
 
     /**
      * 排名
      */
-    public int rank;
+    public int platform;
 }

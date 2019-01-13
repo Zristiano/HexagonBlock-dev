@@ -767,7 +767,7 @@
     <!-- *************4.0公共颜色************* -->
 
 
-    <!-- <color name="v4_activity_bg_color">#E8EEEE</color> -->
+    <!-- <color username="v4_activity_bg_color">#E8EEEE</color> -->
 
 
     <color name="v4_activity_bg_color">@color/whole_bg</color>
@@ -941,4 +941,7 @@
     <color name="wave_color">#99e8b468</color>
     <color name="icon_normal">#ea8010</color>
     <color name="icon_pressed">#f4680a</color>
+    <color name="rank_first">#FFFFD700</color>
+    <color name="rank_second">#FFf4680a</color>
+    <color name="rank_third">#FFe8b468</color>
 </resources>

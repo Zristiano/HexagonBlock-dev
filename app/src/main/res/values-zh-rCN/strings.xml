@@ -25,4 +25,6 @@
     <string name="download_manager">下载管理</string>
     <string name="delete">删除</string>
     <string name="new_version">新版本更新：</string>
+    <string name="data_error">数据错误</string>
+
 </resources>

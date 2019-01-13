@@ -40,7 +40,7 @@ public class ImageLoader
             MemoryCache.getInstance().putBitmap(Url, cache);
             return;
         }
-        if (isNetWorkConncted(imageView.getContext()))
+        if (isNetWorkConnected(imageView.getContext()))
         {
             new ImageLoadAsyncTask(imageView, callBack).execute(Url);
         }
@@ -57,7 +57,7 @@ public class ImageLoader
         void onImgLoadFail();
     }
 
-    public static boolean isNetWorkConncted(Context context)
+    public static boolean isNetWorkConnected(Context context)
     {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(
                 Context.CONNECTIVITY_SERVICE);

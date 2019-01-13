@@ -15,11 +15,11 @@ public class ParseUtils
         if (jsonObject == null)
             return null;
         RankListItem rankListItem = new RankListItem();
-        rankListItem.addTime = jsonObject.optString("addTime");
-        rankListItem.avatar = jsonObject.optString("url");
-        rankListItem.name = jsonObject.optString("name");
-        rankListItem.openid = jsonObject.optString("openid");
+        rankListItem.time = jsonObject.optString("ts");
+        rankListItem.avatar = jsonObject.optString("avatar");
+        rankListItem.username = jsonObject.optString("username");
         rankListItem.score = jsonObject.optInt("score");
+        rankListItem.platform =jsonObject.optInt("platform");
         return rankListItem;
     }
 }

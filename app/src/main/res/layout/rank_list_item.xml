@@ -3,48 +3,59 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/share_container"
     android:layout_width="match_parent"
-    android:layout_height="76dip"
+    android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:padding="8dip">
 
-    <ImageView
-        android:id="@+id/hexfrvr_avatar_iv"
-        android:layout_width="60dip"
-        android:layout_height="60dip"
-        android:gravity="center"
-        android:src="@drawable/avatar1"/>
+    <TextView
+        android:id="@+id/rank"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor = "@color/rank_first"
+        android:text = "1"
+        android:textSize="20dp"
+        android:gravity = "center" />
+
+    <RelativeLayout
+        android:layout_width="35dip"
+        android:layout_height="35dip"
+        android:layout_marginLeft="15dp">
+        <com.example.fresco.AsyncImageView
+            android:id="@+id/avatar"
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:src="@drawable/avatar1"/>
+        <com.example.yuanmengzeng.hexagonblock.CustomView.OvalImageView
+            android:id="@+id/platform"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/platform_twitter"/>
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/hexfrvr_name_tv"
+        android:id="@+id/username"
         android:layout_width="0dip"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:paddingLeft="15dip"
-        android:text="@string/wechat_timeline"
-        android:textColor="@android:color/black"
+        android:layout_marginLeft="25dp"
+        android:text="Yuyangdsfsdf"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="@android:color/white"
         android:textSize="16dp"/>
 
     <TextView
-        android:id="@+id/hexfrvr_score_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="5dip"
-        android:paddingLeft="18dip"
-        android:text="@string/wechat_timeline"
-        android:textColor="@android:color/holo_red_dark"
-        android:textSize="16dp"/>
-
-    <TextView
-        android:id="@+id/hexfrvr_rank_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="5dip"
-        android:paddingLeft="18dip"
-        android:text="@string/wechat_timeline"
-        android:textColor="@android:color/holo_blue_bright"
+        android:id="@+id/score"
+        android:layout_marginLeft="15dp"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="45000"
+        android:textColor="@android:color/white"
         android:textSize="16dp"/>
 
 </LinearLayout>

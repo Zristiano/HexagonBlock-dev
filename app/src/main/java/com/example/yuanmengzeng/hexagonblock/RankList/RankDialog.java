@@ -92,7 +92,6 @@ public class RankDialog extends android.support.v4.app.DialogFragment implements
     private void initFragment()
     {
         tabLayout.removeAllTabs();
-
         pagerAdapter.addFragment(new AllTopListFragment());
         TabLayout.Tab tab1 = tabLayout.newTab();
         tab1.setCustomView(R.layout.tab_item);
